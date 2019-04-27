@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 // Seperated Routes for each Resource
 const getRoute = require("./routes/getRequest");
-const loginRoute = require("./routes/login");
+const loginRoute = require("./routes/loginRoute");
 // Mount all resource routes
 app.use("/", getRoute());
 app.use("/login", loginRoute());

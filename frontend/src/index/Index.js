@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+
 import './Index.css';
+
 import SideBar from './sidebar';
+import LoginForm from './LoginForm.js';
+
 import axios from 'axios';
+
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 /*
@@ -101,9 +106,12 @@ class Home extends Component {
 };
 
 class Login extends Component {
+
   state = {
-    redirect: false,
-    loggedIn: true
+      redirect: false,
+      loggedIn: true,
+      username: "",
+      password: ""
   }
 
   setRedirect = () => {
@@ -121,8 +129,18 @@ class Login extends Component {
     }
   }
 
-  handleSubmit = () => {
-    console.log()
+  handleUsername = (event) => {
+    this.setState({username: event.target.value});
+  }
+  handlePassword = (event) => {
+    this.setState({password: event.target.value});
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Username:", this.state.username);
+    console.log("Password:", this.state.password);
+
   }
 
   render () {
@@ -137,8 +155,18 @@ class Login extends Component {
 
             <form onSubmit={this.handleSubmit}>
               <label>
-                Name:
-                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                Username :
+                <input type="text"
+                       placeholder= "username"
+                       value={this.state.username}
+                       onChange={this.handleUsername} />
+              </label>
+              <label>
+                Password :
+                <input type="text"
+                       placeholder= "password"
+                       value={this.state.password}
+                       onChange={this.handlePassword} />
               </label>
               <input type="submit" value="Submit" />
             </form>
