@@ -10,14 +10,6 @@ class LoginForm extends Component {
     password: ""
   }
 
-  sendLoginData = () => {
-    axios
-    .post("/login")
-    .then((res) => {
-      this.setState({ message: res.data.message })
-    })
-  }
-
   handleUsername = (event) => {
     this.setState({username: event.target.value});
   }
@@ -27,10 +19,35 @@ class LoginForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Username:", this.state.username);
-    console.log("Password:", this.state.password);
+    let loggedIn;
+
+    const loginData = {
+      username: this.state.username,
+      password: this.state.password
+    }
+
+    axios
+    .post("/login", loginData)
+    .then((res) => {
+      console.log(res);
+      axios
+      .get("/login/response")
+      .then((res) => {
+        console.log(res.data);
+        if(res.data.loggedIn)  {
+          alert ("Logged In");
+        } else {
+          alert ("Error occured when logging in");
+        }
+      })
+    })
+  }
+
+  recieveLog = () => {
 
   }
+
+
 
   render() {
     return (
