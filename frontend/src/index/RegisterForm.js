@@ -3,7 +3,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001'
 
 
-class Register extends Component {
+class RegisterForm extends Component {
 
   state = {
     username: "",
@@ -32,25 +32,19 @@ class Register extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const loginData = {
+    const registerData = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      phone: this.state.phone,
+      age: this.state.age,
+      color: this.state.color
     }
 
     axios
-    .post("/login", loginData)
+    .post("/register", registerData)
     .then((res) => {
       console.log(res);
-      axios
-      .get("/login/response")
-      .then((res) => {
-        console.log(res.data);
-        if(res.data.loggedIn)  {
-          alert ("Logged In");
-        } else {
-          alert ("Error occured when logging in");
-        }
-      })
+      alert("Thank you for the info");
     })
   }
 
@@ -65,6 +59,7 @@ class Register extends Component {
                        value={this.state.username}
                        onChange={this.handleUsername} />
               </label>
+
               <label>
                 Password :
                 <input type="text"
@@ -72,10 +67,34 @@ class Register extends Component {
                        value={this.state.password}
                        onChange={this.handlePassword} />
               </label>
+
+              <label>
+                Phone :
+                <input type="text"
+                       placeholder= "phone #"
+                       value={this.state.phone}
+                       onChange={this.handlePhone} />
+              </label>
+
+              <label>
+                Age :
+                <input type="text"
+                       placeholder= "age"
+                       value={this.state.age}
+                       onChange={this.handleAge} />
+              </label>
+
+              <label>
+                Color :
+                <input type="text"
+                       placeholder= "color"
+                       value={this.state.color}
+                       onChange={this.handleColor} />
+              </label>
               <input type="submit" value="Submit" />
             </form>
       </div>
     );
   }
 }
-export default Register;
+export default RegisterForm;

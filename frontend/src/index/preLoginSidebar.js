@@ -3,15 +3,6 @@ import { slide as Menu } from 'react-burger-menu';
 
 class Slider extends Component {
 
-  loggedIn = () => {
-    if(this.props.loggedIn) {
-      return (
-        <a className="menu-item" href="/">
-          Logout
-        </a>
-        );
-    }
-  }
   render () {
     return (
       <Menu>
@@ -28,7 +19,12 @@ class Slider extends Component {
         <a className="menu-item" href="/profile">
           Profile
         </a>
-        {this.loggedIn()}
+        <a className="menu-item" href="/about">
+          About
+        </a>
+        <a className="menu-item" href="/contact">
+          Contact
+        </a>
       </Menu>
     );
   }
