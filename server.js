@@ -13,15 +13,16 @@ const morgan      = require('morgan');
 const bodyParser  = require('body-parser');
 const knexLogger  = require('knex-logger');
 
-
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 // Seperated Routes for each Resource
 const getRoute = require("./routes/getRequest");
+const loginRoute = require("./routes/login");
 // Mount all resource routes
 app.use("/", getRoute());
+app.use("/login", loginRoute());
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
