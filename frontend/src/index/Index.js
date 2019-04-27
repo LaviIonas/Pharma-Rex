@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 import './Index.css';
 
-import SideBar from './sidebar';
+import PreSideBar from './preLoginSidebar';
+import PostSideBar from './postLoginSidebar';
 import LoginForm from './LoginForm.js';
+import RegisterForm from './RegisterForm.js';
+
 
 
 // import axios from 'axios';
@@ -35,9 +38,6 @@ Post:
   }
 */
 
-
-// axios.defaults.baseURL = 'http://localhost:3001'
-
 function ComponentManager() {
   return (
     <Router>
@@ -46,6 +46,10 @@ function ComponentManager() {
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
         <Route path="/profile" component={Profile}/>
+        <Route path="/settings" component={Profile}/>
+        <Route path="/contact" component={Profile}/>
+        <Route path="/logout" component={Profile}/>
+
 
       </div>
     </Router>
@@ -57,7 +61,7 @@ class Home extends Component {
   render () {
     return (
       <div>
-        <SideBar />
+        <PreSideBar />
         <div>
           <h2 className="home-page">Pharma Rex</h2>
           <Link to="/login">Login</Link>
@@ -78,7 +82,7 @@ class Login extends Component {
   render () {
     return (
       <div>
-        <SideBar loggedIn = {this.state.loggedIn}/>
+        <PreSideBar />
         <div>
           <div >
             <Link to="/">Home</Link>
@@ -97,11 +101,12 @@ class Register extends Component {
   render () {
     return (
       <div>
-        <SideBar />
+        <PreSideBar />
         <div>
         <Link to="/">Home</Link>
         <h2 className="home-page">Register A New Profile</h2>
 
+        <RegisterForm />
         </div>
       </div>
 
@@ -112,7 +117,7 @@ class Register extends Component {
 function Profile () {
     return (
     <div>
-      <SideBar />
+      <PostSideBar />
       <div>
         <h2 className="home-page">Register A New Profile</h2>
       </div>
