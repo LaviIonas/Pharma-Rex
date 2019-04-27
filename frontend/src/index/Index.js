@@ -2,45 +2,25 @@ import React, { Component } from 'react';
 
 import './Index.css';
 
+//Version of the sidebar shown before  logging in
 import PreSideBar from './preLoginSidebar';
+//Version of the sidebar shown after loggin in
 import PostSideBar from './postLoginSidebar';
-import LoginForm from './LoginForm.js';
-import RegisterForm from './RegisterForm.js';
+
+import RegisterPopup from './RegisterPopup';
+import LoginPopup from './LoginPopup';
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
-/*
+import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:3001';
 
-Axios Example use
-Get:
-  getData = () => {
-    axios
-    .get("/")
-    .then((res) => {
-      this.setState({ message: res.data.message })
-    })
-  }
-Post:
-  sendData = () => {
-    const msg = {
-      a: "1"
-    }
-    axios
-    .post("/", msg)
-    .then((res) => {
-      console.log(res);
-      console.log(res.data);
-    })
-  }
-*/
 
 function ComponentManager() {
   return (
     <Router>
       <div>
         <Route exact path="/" component={Home}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/register" component={Register}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/about" component={About}/>
         <Route path="/contact" component={Contact}/>
@@ -54,6 +34,26 @@ function ComponentManager() {
 
 class Home extends Component {
 
+  constructor () {
+    super();
+    this.state = {
+      showLogin: false,
+      showRegister: false,
+    }
+  }
+
+  toggleLogin = () => {
+    this.setState({
+      showLogin: !this.state.showLogin
+    });
+  }
+  toggleRegister = () => {
+    this.setState({
+      showRegister: !this.state.showRegister
+    });
+  }
+
+  //Sends test text using twillo
   sendText = () => {
     axios
       .get("/test")
@@ -68,60 +68,32 @@ class Home extends Component {
         <PreSideBar />
         <div>
           <h2 className="home-page">Pharma Rex</h2>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
+
           <button onClick={this.sendText}>Send Text</button>
-        </div>
+
+
+          <button onClick={this.toggleLogin}>Login</button>
+          <button onClick={this.toggleRegister}>Register</button>
+
+          {this.state.showRegister ?
+            <RegisterPopup closePopup={this.toggleRegister} />
+            : null
+          }
+          {this.state.showLogin ?
+            <LoginPopup closePopup={this.toggleLogin} />
+            : null
+          }
+
+
+      </div>
+
       </div>
 
     );
   }
 };
 
-class Login extends Component {
-
-  state = {
-    loggedIn: true
-  }
-
-  render () {
-    return (
-      <div>
-        <PreSideBar />
-        <div>
-          <div >
-            <Link to="/">Home</Link>
-            <h2 className="home-page">Login To Your Profile</h2>
-
-            <LoginForm />
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-class Register extends Component {
-
-  render () {
-    return (
-      <div>
-        <PreSideBar />
-        <div>
-        <Link to="/">Home</Link>
-        <h2 className="home-page">Register A New Profile</h2>
-
-        <RegisterForm />
-        </div>
-      </div>
-
-    );
-  }
-}
-
-class Profile extends Component () {
-
-
+class Profile extends Component {
 
   render() {
     return (
