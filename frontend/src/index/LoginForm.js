@@ -1,26 +1,37 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:3001'
 
-let msg = '';
-let name = '';
 
 class LoginForm extends Component {
-  //When Key is Pressed, if value is 'Enter' send data to APP.jsx, then reset data for the placeholders
-  handleKeyPressMsg = (event) => {
-      if(event.key == 'Enter'){
-        event.preventDefault();
-        msg = event.target.value;
-        this.props.handleInputMsg(msg);
-        event.target.value = '';
-      }
+
+  state = {
+    username: "",
+    password: ""
   }
-  handleKeyPressName = (event) => {
-      if(event.key == 'Enter'){
-        event.preventDefault();
-        name = event.target.value;
-        this.props.handleInputName(name);
-        event.target.value = '';
-      }
+
+  sendLoginData = () => {
+    axios
+    .post("/login")
+    .then((res) => {
+      this.setState({ message: res.data.message })
+    })
   }
+
+  handleUsername = (event) => {
+    this.setState({username: event.target.value});
+  }
+  handlePassword = (event) => {
+    this.setState({password: event.target.value});
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Username:", this.state.username);
+    console.log("Password:", this.state.password);
+
+  }
+
   render() {
     return (
       <div>
@@ -45,4 +56,4 @@ class LoginForm extends Component {
     );
   }
 }
-export default ChatBar;
+export default LoginForm;
