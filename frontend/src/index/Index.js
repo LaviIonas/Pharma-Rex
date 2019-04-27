@@ -46,11 +46,11 @@ function ComponentManager() {
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
         <Route path="/profile" component={Profile}/>
-        <Route path="/settings" component={Profile}/>
-        <Route path="/contact" component={Profile}/>
-        <Route path="/logout" component={Profile}/>
+        <Route path="/about" component={About}/>
+        <Route path="/contact" component={Contact}/>
 
-
+        <Route path="/settings" component={Settings}/>
+        <Route path="/logout" component={Logout}/>
       </div>
     </Router>
   );
@@ -114,7 +114,60 @@ class Register extends Component {
   }
 }
 
-function Profile () {
+class Profile extends Component () {
+
+
+
+  render() {
+    return (
+      <div>
+        <PostSideBar />
+        <div>
+          <h2 className="home-page">Register A New Profile</h2>
+        </div>
+      </div>
+
+    );
+  }
+}
+
+function About () {
+    return (
+    <div>
+      <PostSideBar />
+      <div>
+        <h2 className="home-page">Register A New Profile</h2>
+      </div>
+    </div>
+
+  );
+}
+
+function Contact () {
+    return (
+    <div>
+      <PostSideBar />
+      <div>
+        <h2 className="home-page">Register A New Profile</h2>
+      </div>
+    </div>
+
+  );
+}
+
+function Settings () {
+    return (
+    <div>
+      <PostSideBar />
+      <div>
+        <h2 className="home-page">Register A New Profile</h2>
+      </div>
+    </div>
+
+  );
+}
+
+function Logout () {
     return (
     <div>
       <PostSideBar />
