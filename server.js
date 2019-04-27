@@ -27,6 +27,15 @@ app.use("/login", loginRoute());
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
+// app.get("/login/response", (req, res) => {
+//     console.log("IN");
+//     if(true){
+//       res.json({loggedIn: true});
+//     }
+
+//     console.log("replied to React loggin form");
+//   });
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
