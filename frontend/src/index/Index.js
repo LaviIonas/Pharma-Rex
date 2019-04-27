@@ -4,10 +4,9 @@ import './Index.css';
 
 import SideBar from './sidebar';
 import LoginForm from './LoginForm.js';
-import RedirectorButton from './RedirectorButton.js';
 
 
-import axios from 'axios';
+// import axios from 'axios';
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
@@ -37,7 +36,7 @@ Post:
 */
 
 
-axios.defaults.baseURL = 'http://localhost:3001'
+// axios.defaults.baseURL = 'http://localhost:3001'
 
 function ComponentManager() {
   return (
@@ -71,6 +70,10 @@ class Home extends Component {
 };
 
 class Login extends Component {
+
+  state = {
+    loggedIn: true
+  }
 
   render () {
     return (
