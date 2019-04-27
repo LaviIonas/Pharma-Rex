@@ -3,30 +3,21 @@
 const express = require('express');
 const router  = express.Router();
 
-let users = {
-  "admin": {
-    username: "admin",
-    password: "admin"
-  }
-}
-
 module.exports = () => {
 
-  // router.get("/", (req, res) => {
-  //   res.json({message: "sending message"});
-  //   console.log("sent a message to react");
-  // });
-
   router.post("/", (req, res) => {
-    console.log("Checking password");
-    users.forEach((user)=> {
-      if(user.username === req.body.username) {
-        if(user.password === req.body.password) {
-          return true;
-        }
-      }
-    });
+    console.log("Username:", req.body.username);
+    console.log("Password:", req.body.password);
     res.status(200).end();
+  });
+
+  router.get("/response", (req, res) => {
+    console.log("In");
+    if(true){
+      res.json({loggedIn: true});
+    }
+
+    console.log("replied to React loggin form");
   });
 
   return router;
