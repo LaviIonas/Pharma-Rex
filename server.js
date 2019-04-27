@@ -20,21 +20,14 @@ app.use(bodyParser.json());
 // Seperated Routes for each Resource
 const getRoute = require("./routes/getRequest");
 const loginRoute = require("./routes/loginRoute");
+const registerRoute = require("./routes/registerRoute");
 // Mount all resource routes
 app.use("/", getRoute());
 app.use("/login", loginRoute());
+app.use("/register", registerRoute());
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-
-// app.get("/login/response", (req, res) => {
-//     console.log("IN");
-//     if(true){
-//       res.json({loggedIn: true});
-//     }
-
-//     console.log("replied to React loggin form");
-//   });
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
