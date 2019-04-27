@@ -6,7 +6,7 @@ import SideBar from './sidebar';
 import LoginForm from './LoginForm.js';
 
 
-// import axios from 'axios';
+import axios from 'axios';
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
@@ -36,7 +36,7 @@ Post:
 */
 
 
-// axios.defaults.baseURL = 'http://localhost:3001'
+axios.defaults.baseURL = 'http://localhost:3001'
 
 function ComponentManager() {
   return (
@@ -54,6 +54,14 @@ function ComponentManager() {
 
 class Home extends Component {
 
+  sendText = () => {
+    axios
+      .get("/test")
+      .then((res) => {
+        console.log("sent");
+      })
+  }
+
   render () {
     return (
       <div>
@@ -62,6 +70,7 @@ class Home extends Component {
           <h2 className="home-page">Pharma Rex</h2>
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
+          <button onClick={this.sendText}>Send Text</button>
         </div>
       </div>
 
