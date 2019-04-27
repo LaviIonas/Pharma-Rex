@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import './Index.css';
 
 import PreSideBar from './preLoginSidebar';
+import Login from './Login';
 import PostSideBar from './postLoginSidebar';
-import LoginForm from './LoginForm.js';
 import RegisterForm from './RegisterForm.js';
+
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
@@ -78,28 +79,7 @@ class Home extends Component {
   }
 };
 
-class Login extends Component {
 
-  state = {
-    loggedIn: true
-  }
-
-  render () {
-    return (
-      <div>
-        <PreSideBar />
-        <div>
-          <div >
-            <Link to="/">Home</Link>
-            <h2 className="home-page">Login To Your Profile</h2>
-
-            <LoginForm />
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 
 class Register extends Component {
 
