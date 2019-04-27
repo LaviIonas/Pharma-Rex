@@ -38,10 +38,10 @@ app.get("/test", (req,res) => {
   console.log("Sent the Message");
   client.messages
     .create({
-       body: 'Hello, it is time to take your medication!',
-       from: '+16474902749',
-       to: '+14168890760'
-     })
+      body: 'Hello, it is time to take your medication!',
+      from: '+16474902749',
+      to: '+14168890760'
+    })
 })
 
 // app.get("/login/response", (req, res) => {
