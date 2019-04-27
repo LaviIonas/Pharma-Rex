@@ -21,7 +21,11 @@
     "knex-logger": "^0.1.0",
     "morgan": "^1.7.0",
     "node-sass-middleware": "^0.9.8",
+<<<<<<< HEAD
     "pg": "^6.4.2",
+=======
+    "pg": "^6.0.2",
+>>>>>>> Profile-Feature
     "react-burger-menu": "^2.6.10",
     "twilio": "^3.30.2"
   },

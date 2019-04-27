@@ -12,7 +12,6 @@ module.exports = () => {
   });
 
   router.get("/response", (req, res) => {
-    console.log("In");
     if(true){
       res.json({loggedIn: true});
     }
