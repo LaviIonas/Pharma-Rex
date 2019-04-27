@@ -5,7 +5,6 @@ const router  = express.Router();
 
 module.exports = () => {
 
-
   router.get("/", (req, res) => {
     res.json({message: "sending message"});
     console.log("sent a message to react");
