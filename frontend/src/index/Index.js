@@ -1,57 +1,13 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
-import './App.css';
-
+import './Index.css';
+import SideBar from './sidebar';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
-axios.defaults.baseURL = 'http://localhost:3001'
+/*
 
-
-
-function BasicExample() {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/get">Get Info Button</Link>
-          </li>
-          <li>
-            <Link to="/send">Send Info Button</Link>
-          </li>
-        </ul>
-
-        <hr />
-
-        <Route exact path="/" component={Home} />
-        <Route path="/get" component={Get} />
-        <Route path="/send" component={Send} />
-      </div>
-    </Router>
-  );
-};
-
-function Home() {
-  return (
-    <div>
-      <h2>Home Page</h2>
-    </div>
-  );
-};
-
-class Get extends Component {
-  constructor () {
-    super();
-    this.state = {
-      message: "Nothing here",
-    }
-
-  }
-
+Axios Example use
+Get:
   getData = () => {
     axios
     .get("/")
@@ -59,7 +15,7 @@ class Get extends Component {
       this.setState({ message: res.data.message })
     })
   }
-
+Post:
   sendData = () => {
     const msg = {
       a: "1"
@@ -71,31 +27,176 @@ class Get extends Component {
       console.log(res.data);
     })
   }
-  render() {
-    return (
-      <div >
-        <div >
-          <h2>Get Info from the Express Server</h2>
-          <h2>Current Message: {this.state.message}</h2>
-        </div>
+*/
 
-        <button onClick={this.getData}>Get the info</button>
-        // <button onClick={this.sendData}>Send the info</button>
+
+axios.defaults.baseURL = 'http://localhost:3001'
+
+function ComponentManager() {
+  return (
+    <Router>
+      <div>
+        <Route exact path="/" component={Home}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/register" component={Register}/>
+        <Route path="/profile" component={Profile}/>
+
+      </div>
+    </Router>
+  );
+};
+
+class Home extends Component {
+
+  state = {
+    redirectLogin: false,
+    redirectRegister: false
+  }
+
+  setRedirectLogin = () => {
+    this.setState({
+      redirectLogin: true
+    })
+  }
+
+  setRedirectRegister = () => {
+    this.setState({
+      redirectRegister: true
+    })
+  }
+
+  renderRedirectLogin = () => {
+    if (this.state.redirectLogin) {
+      this.setState({
+        redirectLogin: true
+      })
+      return <Redirect to='/login' />
+    }
+  }
+  renderRedirectRegister = () => {
+    if (this.state.redirectRegister) {
+      this.setState({
+        redirectRegister: true
+      })
+      return <Redirect to='/register' />
+    }
+  }
+
+  render () {
+    return (
+      <div>
+        <SideBar />
+        <div>
+          <h2 className="home-page">Pharma Rex</h2>
+          {this.renderRedirectLogin()}
+          {this.renderRedirectRegister()}
+            <button className="home-button" onClick={this.setRedirectLogin} type="button">LOGIN</button>
+            <button className="home-button" onClick={this.setRedirectRegister} type="button">REGISTER</button>
+
+        </div>
+      </div>
+
+    );
+  }
+};
+
+class Login extends Component {
+  state = {
+    redirect: false,
+    loggedIn: true
+  }
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      this.setState({
+        redirect: true
+      })
+      return <Redirect to='/' />
+    }
+  }
+
+  handleSubmit = () => {
+    console.log()
+  }
+
+  render () {
+    return (
+      <div>
+        <SideBar loggedIn = {this.state.loggedIn}/>
+        <div>
+          <div >
+            {this.renderRedirect()}
+            <h2 className="home-page">Login To Your Profile</h2>
+            <button className="home-button" onClick={this.setRedirect} type="button">HOME</button>
+
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Name:
+                <input type="text" value={this.state.value} onChange={this.handleChange} />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
+class Register extends Component {
 
-function Send() {
-  return (
+  state = {
+    redirect: false
+  }
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      this.setState({
+        redirect: true
+      })
+      return <Redirect to='/' />
+    }
+  }
+  render () {
+    return (
+      <div>
+        <SideBar />
+        <div>
+        {this.renderRedirect()}
+          <h2 className="home-page">Register A New Profile</h2>
+            <button className="home-button" onClick={this.setRedirect} type="button">HOME</button>
+
+        </div>
+      </div>
+
+    );
+  }
+}
+
+function Profile () {
+    return (
     <div>
-      <h2>Send Data to Express</h2>
-      <button>Send the info</button>
+      <SideBar />
+      <div>
+        <h2 className="home-page">Register A New Profile</h2>
+      </div>
     </div>
+
   );
 }
 
-export default BasicExample;
+export default ComponentManager;
 
 // export default App;
