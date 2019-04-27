@@ -21,6 +21,31 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
+/*
+
+Axios Example use
+Get:
+  getData = () => {
+    axios
+    .get("/")
+    .then((res) => {
+      this.setState({ message: res.data.message })
+    })
+  }
+Post:
+  sendData = () => {
+    const msg = {
+      a: "1"
+    }
+    axios
+    .post("/", msg)
+    .then((res) => {
+      console.log(res);
+      console.log(res.data);
+    })
+  }
+*/
+
 // Seperated Routes for each Resource
 const getRoute = require("./routes/getRequest");
 const loginRoute = require("./routes/loginRoute");
@@ -44,14 +69,6 @@ app.get("/test", (req,res) => {
      })
 })
 
-// app.get("/login/response", (req, res) => {
-//     console.log("IN");
-//     if(true){
-//       res.json({loggedIn: true});
-//     }
-
-//     console.log("replied to React loggin form");
-//   });
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
