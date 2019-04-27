@@ -3,11 +3,14 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001'
 
 
-class LoginForm extends Component {
+class Register extends Component {
 
   state = {
     username: "",
-    password: ""
+    password: "",
+    phone: "",
+    age: "",
+    color: ""
   }
 
   handleUsername = (event) => {
@@ -15,6 +18,15 @@ class LoginForm extends Component {
   }
   handlePassword = (event) => {
     this.setState({password: event.target.value});
+  }
+  handlePhone = (event) => {
+    this.setState({phone: event.target.value});
+  }
+  handleAge = (event) => {
+    this.setState({age: event.target.value});
+  }
+  handleColor = (event) => {
+    this.setState({color: event.target.value});
   }
 
   handleSubmit = (event) => {
@@ -66,4 +78,4 @@ class LoginForm extends Component {
     );
   }
 }
-export default LoginForm;
+export default Register;
