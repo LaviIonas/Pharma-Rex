@@ -10,6 +10,9 @@ import PostSideBar from './postLoginSidebar';
 import RegisterPopup from './RegisterPopup';
 import LoginPopup from './LoginPopup';
 
+import PillManagement from './PillManagement';
+import ProfileInfo from './ProfileInfo';
+
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 import axios from 'axios';
@@ -99,8 +102,10 @@ class Profile extends Component {
     return (
       <div>
         <PostSideBar />
+
         <div>
-          <h2 className="home-page">Register A New Profile</h2>
+          <ProfileInfo />
+          <PillManagement />
         </div>
       </div>
 
@@ -137,7 +142,7 @@ function Settings () {
     <div>
       <PostSideBar />
       <div>
-        <h2 className="home-page">Register A New Profile</h2>
+        <h2 className="home-page">Settings</h2>
       </div>
     </div>
 
