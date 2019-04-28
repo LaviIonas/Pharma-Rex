@@ -157,5 +157,3 @@ function Logout () {
 }
 
 export default ComponentManager;
-
-// export default App;
