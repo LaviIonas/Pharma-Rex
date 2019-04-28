@@ -50,10 +50,14 @@ Post:
 const getRoute = require("./routes/getRequest");
 const loginRoute = require("./routes/loginRoute");
 const registerRoute = require("./routes/registerRoute");
+const profileRoute = require("./routes/profileRoute");
+
 // Mount all resource routes
 app.use("/", getRoute());
 app.use("/login", loginRoute());
 app.use("/register", registerRoute());
+app.use("/profile", profileRoute());
+
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
