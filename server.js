@@ -15,11 +15,21 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const bodyParser  = require('body-parser');
 const knexLogger  = require('knex-logger');
-const client = require('twilio')(accountSid, authToken);
+var cookieSession = require('cookie-session');
+const corsOptions = {origin: 'http://localhost:3000', credentials: true}
+// const client = require('twilio')(accountSid, authToken);
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['keyboard'],
+
+  //Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 /*
 
@@ -51,9 +61,9 @@ const getRoute = require("./routes/getRequest");
 const loginRoute = require("./routes/loginRoute");
 const registerRoute = require("./routes/registerRoute");
 // Mount all resource routes
-app.use("/", getRoute());
-app.use("/login", loginRoute());
-app.use("/register", registerRoute());
+app.use("/", getRoute(knex));
+app.use("/login", loginRoute(knex));
+app.use("/register", registerRoute(knex));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));

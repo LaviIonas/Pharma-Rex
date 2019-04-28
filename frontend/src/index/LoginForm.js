@@ -26,11 +26,11 @@ class LoginForm extends Component {
     }
 
     axios
-    .post("/login", loginData)
+    .post("/login", loginData, {withCredentials: true})
     .then((res) => {
       console.log(res);
       axios
-      .get("/login/response")
+      .get("/login/response", {withCredentials: true})
       .then((res) => {
         console.log(res.data);
         if(res.data.loggedIn)  {
