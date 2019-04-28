@@ -3,6 +3,12 @@ body {
   margin: 0;
 }
 
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  display: inline;
+}
+
 /*------*/
 
 .popup {
