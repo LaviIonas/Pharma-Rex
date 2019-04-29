@@ -24,6 +24,8 @@ axios.defaults.baseURL = 'http://localhost:3001';
 
 function ComponentManager() {
   return (
+  <div>
+  <h2>Navbar will go here</h2>
     <Router>
       <div>
         <Route exact path="/" component={Home}/>
@@ -35,8 +37,27 @@ function ComponentManager() {
         <Route path="/logout" component={Logout}/>
       </div>
     </Router>
+    </div>
   );
 };
+//Sends test text using twillo
+const sendText = () => {
+  axios
+    .get("/test")
+    .then((res) => {
+      console.log("sent");
+    })
+}
+
+// setting up the timeralert to go to the backend
+const timerAlert = (time) => {
+  setTimeout( () => {
+    //REMINDER
+    sendText();
+    //SEND TO BACKEND NEW TIMER NOTIFICATION
+
+  }, time);
+}
 
 class Home extends Component {
 
@@ -59,14 +80,15 @@ class Home extends Component {
     });
   }
 
-  //Sends test text using twillo
-  sendText = () => {
-    axios
-      .get("/test")
-      .then((res) => {
-        console.log("sent");
-      })
-  }
+//
+componentDidMount() {
+  //ask backend server for the date when notification has to send
+  let alertTime = Date.now() + 10000;
+  let nowTime = Date.now();
+  timerAlert(alertTime - nowTime)
+  //add inn loop for pulling out data from table
+}
+
 
   render () {
     return (
@@ -108,7 +130,7 @@ class Home extends Component {
             </p>
           </div>
 
-          <button onClick={this.sendText}>Send Text</button>
+          <button onClick={sendText}>Send Text</button>
 
 
           <button onClick={this.toggleLogin}>Login</button>
