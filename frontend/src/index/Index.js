@@ -28,6 +28,8 @@ function ComponentManager() {
       <div>
         <Route exact path="/" component={Home}/>
         <Route path="/profile" component={Profile}/>
+        <Route path="/caretaker" component={Caretaker}/>
+
         <Route path="/about" component={About}/>
         <Route path="/contact" component={Contact}/>
 
@@ -45,6 +47,9 @@ class Home extends Component {
     this.state = {
       showLogin: false,
       showRegister: false,
+      redirectLogin: false,
+      redP: false,
+      redC: false
     }
   }
 
@@ -52,11 +57,33 @@ class Home extends Component {
     this.setState({
       showLogin: !this.state.showLogin
     });
+
   }
   toggleRegister = () => {
     this.setState({
       showRegister: !this.state.showRegister
     });
+  }
+
+  redirectLogin = () => {
+    this.setState({
+      redirectLogin: true
+    })
+  }
+
+  redirectPatient = () => {
+    console.log("hit hit");
+    this.setState ({
+      redP: true
+    })
+    console.log("hit hit", this.state.redP);
+
+  }
+
+  redirectCaregiver = () => {
+    this.setState ({
+      redC: true
+    })
   }
 
   //Sends test text using twillo
@@ -115,14 +142,28 @@ class Home extends Component {
           <button onClick={this.toggleRegister}>Register</button>
 
           {this.state.showRegister ?
-            <RegisterPopup closePopup={this.toggleRegister} />
+            <RegisterPopup closePopup={this.toggleRegister} redirectPatient={this.redirectPatient} redirectCaregiver={this.redirectCaregiver}/>
             : null
           }
           {this.state.showLogin ?
-            <LoginPopup closePopup={this.toggleLogin} />
+            <LoginPopup closePopup={this.toggleLogin} redirect={this.redirectLogin}/>
             : null
           }
 
+          {this.state.redirectLogin ?
+            <Redirect to = {"/profile"} />
+            : null
+          }
+
+          {this.state.redP ?
+            <Redirect to = {"/profile"} />
+            : null
+          }
+
+          {this.state.redC ?
+            <Redirect to = {"/caretaker"} />
+            : null
+          }
 
       </div>
 
@@ -143,6 +184,17 @@ class Profile extends Component {
           <ProfileInfo />
           <PillManagement />
         </div>
+      </div>
+
+    );
+  }
+}
+
+class Caretaker extends Component {
+  render() {
+    return (
+      <div>
+        Caretaker
       </div>
 
     );
