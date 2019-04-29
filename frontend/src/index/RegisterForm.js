@@ -41,9 +41,8 @@ class RegisterForm extends Component {
     }
 
     axios
-    .post("/register", registerData)
+    .post("/register", registerData, {withCredentials: true})
     .then((res) => {
-      console.log(res);
       alert("Thank you for the info");
     })
   }
