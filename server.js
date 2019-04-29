@@ -17,7 +17,7 @@ const bodyParser  = require('body-parser');
 const knexLogger  = require('knex-logger');
 var cookieSession = require('cookie-session');
 const corsOptions = {origin: 'http://localhost:3000', credentials: true}
-// const client = require('twilio')(accountSid, authToken);
+const client = require('twilio')(accountSid, authToken);
 
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
