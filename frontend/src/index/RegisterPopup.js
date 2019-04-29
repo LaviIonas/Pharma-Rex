@@ -15,7 +15,7 @@ class RegisterPopup extends Component {
     return (
       <Modal show={this.props.show} onHide={this.props.closePopup}>
           <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Register for Pharma Rex</Modal.Title>
            </Modal.Header>
         <Modal.Body><RegisterForm /></Modal.Body>
         <Modal.Footer>
