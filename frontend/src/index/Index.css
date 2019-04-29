@@ -21,6 +21,7 @@ body {
   bottom: 0;
   margin: auto;
   background-color: rgba(0,0,0, 0.5);
+  font-family: "Nunito", sans-serif;
 }
 .popup_inner {
   position: absolute;
@@ -30,6 +31,7 @@ body {
   bottom: 25%;
   margin: auto;
   background: white;
+  font-family: "Nunito", sans-serif;
 }
 
 /*------*/
@@ -39,13 +41,182 @@ label {
 }
 
 .home-page {
-  margin: 0;
+  margin-top: 100px;
   text-align: center;
-  font-size: 17px;
+  font-family: "Nunito", sans-serif;
+  font-size: 30px;
+  color: mediumseagreen;
+}
+
+.secondary-line {
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-size: 30px;
+}
+
+/*Above the line styling*/
+.pitch {
+  background: white;
+  max-width: 720px;
+  display: flex;
+  margin: auto;
+  margin-top: 21px;
+  border-radius: 6px;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  padding: 24px 12px;
+  list-style-type: none;
+  box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.75);
+}
+.pitch__bullet {
+  max-width: 201px;
+  min-height: 150px;
+  border-left: 1px solid darkslateblue;
+  padding: 0 2vw;
+  color: darkslategray;
+  font-family: "Nunito", sans-serif;
+}
+.pitch__bullet:first-child {
+  border-left: none;
+}
+.pitch__icon {
+  color: slateblue;
+  align: center;
+}
+/* Button styling */
+.buttonprimary {
+  background: darkslateblue;
+  border: none;
+  padding: 9px;
+  width: 100%;
+  max-width: 160px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: ghostwhite;
+  font-size: 0.9em;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+}
+.buttonprimary:hover {
+  background: slateblue;
+  transition: 99ms;
+  cursor: pointer;
+}
+.buttonprimary.primarysmaller {
+  max-width: 148px;
+  margin-right: 21px;
+}
+.buttonprimary.disabled {
+  border: 1px solid slategray;
+  background: slategray;
+  cursor: not-allowed;
+}
+
+.buttontransparent {
+  background: transparent;
+  border: 1px solid darkslateblue;
+  color: darkslateblue;
+  padding: 9px;
+  width: 100%;
+  max-width: 160px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1em;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+}
+.buttontransparent:hover {
+  background: slateblue;
+  border: 1px solid transparent;
+  color: ghostwhite;
+  transition: 60ms;
+  cursor: pointer;
+}
+.buttontransparent:active {
+  background: slateblue;
+  color: ghostwhite;
+}
+.buttontransparent.home {
+  margin-bottom: 12px;
+}
+.buttontransparent.buttontransparent-list {
+  padding: 3px 6px;
+  font-size: 0.9em;
+}
+.buttontransparent.primarysmaller {
+  max-width: 148px;
+  margin-right: 12px;
+}
+.vertical-buttonpanel {
+  margin-top: 30px;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .home-button {
-    margin-left: 50px;
+  margin-left: 50px;
+}
+
+/* Below Buttons Links*/
+
+.links-to-info {
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  text-align: center;
+}
+
+.project_link {
+  color: darkslateblue;
+}
+
+.about-info {
+
+}
+
+
+.about-text {
+  font-family: "Nunito", sans-serif;
+  text-align: center;
+}
+
+.animate-button {
+  border: 5px solid transparent;
+  background: #AED6D1;
+  color: #55706D;
+  border-radius: 40px;
+  padding: 15px 30px;
+  overflow: hidden;
+  width: 200px;
+  transition:
+    all        1.2s,
+    border     0.5s 1.2s,
+    box-shadow 0.3s 1.5s;
+  white-space: nowrap;
+  text-indent: 23px;
+  font-weight: bold;
+  span {
+    display: inline-block;
+    transform: translateX(300px);
+    font-weight: normal;
+    opacity: 0;
+    transition:
+      opacity 0.1s 0.5s,
+      transform 0.4s 0.5s;
+  }
+  &:hover {
+    text-indent: 0;
+    background: #55706D;
+    color: #FFE8A3;
+    width: 250px;
+    border: 10px solid #8DCCC4;
+    box-shadow: 3px 3px 2px rgba(black, 0.15);
+    span {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 }
 
 #App {
@@ -95,6 +266,7 @@ label {
   background: #373a47;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
+  font-family: "Nunito", sans-serif;
 }
 
 .bm-morph-shape {
