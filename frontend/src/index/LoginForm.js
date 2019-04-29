@@ -40,6 +40,8 @@ class LoginForm extends Component {
         }
       })
     })
+
+    this.props.whenSubmit();
   }
 
   render() {

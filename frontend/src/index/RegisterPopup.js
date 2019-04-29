@@ -1,14 +1,32 @@
 import React, {Component} from 'react';
 import './Index.css';
-import RegisterForm from './RegisterForm';
+import PatientRegisterForm from './PatientRegisterForm';
+import CaregiverRegisterForm from './CaregiverRegisterForm';
 
 class RegisterPopup extends Component {
   constructor () {
     super();
     this.state = {
-      apples: true
+      patient: false,
+      caregiver: false,
+      show: true,
     }
   }
+
+  triggerPatient = () => {
+    this.setState ({
+      patient: true,
+      show: false
+    })
+  }
+
+  triggerCaregiver = () => {
+    this.setState ({
+      caregiver: true,
+      show: false
+    })
+  }
+
   render () {
     return (
       <div className='popup'>
@@ -17,7 +35,22 @@ class RegisterPopup extends Component {
             <h2 className="home-page">Register A New Profile</h2>
             <button onClick={this.props.closePopup}>X</button>
 
-            <RegisterForm />
+            {this.state.show?
+              <div>
+                <button onClick={this.triggerPatient}>Patient </button>
+                <button onClick={this.triggerCaregiver}>Caregiver </button>
+              </div>
+              : null
+            }
+
+            {this.state.patient ?
+              <PatientRegisterForm whenSubmit={this.props.redirectPatient}/>
+              : null
+            }
+            {this.state.caregiver ?
+              <CaregiverRegisterForm whenSubmit={this.props.redirectCaregiver}/>
+              : null
+            }
           </div>
         </div>
       </div>

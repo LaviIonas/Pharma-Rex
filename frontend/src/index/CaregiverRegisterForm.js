@@ -3,13 +3,13 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001'
 
 
-class RegisterForm extends Component {
+class CaregiverRegisterForm extends Component {
 
   state = {
     username: "",
     password: "",
     phone: "",
-    age: "",
+    careId: "",
     color: ""
   }
 
@@ -22,8 +22,8 @@ class RegisterForm extends Component {
   handlePhone = (event) => {
     this.setState({phone: event.target.value});
   }
-  handleAge = (event) => {
-    this.setState({age: event.target.value});
+  handleCareId = (event) => {
+    this.setState({careId: event.target.value});
   }
   handleColor = (event) => {
     this.setState({color: event.target.value});
@@ -33,18 +33,22 @@ class RegisterForm extends Component {
     event.preventDefault();
 
     const registerData = {
+      status: "Caregiver",
       username: this.state.username,
       password: this.state.password,
       phone: this.state.phone,
-      age: this.state.age,
+      careId: this.state.careId,
       color: this.state.color
     }
 
     axios
-    .post("/register", registerData, {withCredentials: true})
+    .post("/register", registerData)
     .then((res) => {
+      console.log(res);
       alert("Thank you for the info");
     })
+
+    this.props.whenSubmit();
   }
 
   render() {
@@ -76,11 +80,11 @@ class RegisterForm extends Component {
               </label>
 
               <label>
-                Age :
+                CareId :
                 <input type="text"
-                       placeholder= "age"
-                       value={this.state.age}
-                       onChange={this.handleAge} />
+                       placeholder= "CareId"
+                       value={this.state.careId}
+                       onChange={this.handleCareId} />
               </label>
 
               <label>
@@ -96,4 +100,4 @@ class RegisterForm extends Component {
     );
   }
 }
-export default RegisterForm;
+export default CaregiverRegisterForm;

@@ -6,9 +6,12 @@ class LoginPopup extends Component {
   constructor () {
     super();
     this.state = {
-      loggedIn: true
+      loggedIn: true,
     }
   }
+
+
+
   render () {
     return (
       <div className='popup'>
@@ -19,7 +22,8 @@ class LoginPopup extends Component {
                 <h2 className="home-page">Login To Your Profile</h2>
                 <button onClick={this.props.closePopup}>X</button>
 
-                <LoginForm />
+                <LoginForm whenSubmit={this.props.redirect}/>
+
               </div>
             </div>
           </div>
