@@ -114,10 +114,9 @@ class Home extends Component {
           <button onClick={this.toggleLogin}>Login</button>
           <button onClick={this.toggleRegister}>Register</button>
 
-          {this.state.showRegister ?
-            <RegisterPopup closePopup={this.toggleRegister} />
-            : null
-          }
+
+            <RegisterPopup closePopup={this.toggleRegister} show={this.state.showRegister} />
+          
           {this.state.showLogin ?
             <LoginPopup closePopup={this.toggleLogin} />
             : null

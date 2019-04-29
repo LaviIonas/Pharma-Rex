@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './Index.css';
 import RegisterForm from './RegisterForm';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 class RegisterPopup extends Component {
   constructor () {
@@ -11,16 +13,20 @@ class RegisterPopup extends Component {
   }
   render () {
     return (
-      <div className='popup'>
-        <div className='popup_inner'>
-          <div >
-            <h2 className="home-page">Register A New Profile</h2>
-            <button onClick={this.props.closePopup}>X</button>
-
-            <RegisterForm />
-          </div>
-        </div>
-      </div>
+      <Modal show={this.props.show} onHide={this.props.closePopup}>
+          <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+           </Modal.Header>
+        <Modal.Body><RegisterForm /></Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.props.closePopup}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.props.closePopup}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
     );
   }
 }
