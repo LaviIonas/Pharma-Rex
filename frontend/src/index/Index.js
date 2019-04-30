@@ -204,6 +204,11 @@ class Home extends Component {
 
 class Profile extends Component {
 
+  constructor () {
+    super ();
+    this.state = {}
+  }
+
   render() {
     return (
       <div>

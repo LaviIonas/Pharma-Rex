@@ -10,7 +10,8 @@ class PillManagment extends Component {
       popup: false,
       name: "",
       dose: "",
-      interval: ""
+      interval: "",
+      drugArray: [{name: "Bob", dose: "Ten million", interval: "30 sec"}, {name: "Bob", dose: "Ten million", interval: "30 sec"}]
     }
   }
 
@@ -20,29 +21,49 @@ class PillManagment extends Component {
     });
   }
 
-  useData = (name, dose, interval) => {
+  useData = (data) => {
+
     this.setState({
-      name: name,
-      dose: dose,
-      interval: interval
+      drugArray: [...this.state.drugArray, data]
     })
+    console.log(this.state.drugArray);
   }
-  //Find a way to generate more drugs using the data from the form
 
   render () {
     return (
       <div>
-
         <button onClick={this.togglePopup}>+</button>
         {this.state.popup ?
           <Popup closePopup={this.togglePopup} useData = {this.useData}/>
           : null
+        }
+        {
+          this.state.drugArray.map(drug => {
+            return <Pills name={drug.name} dose={drug.dose} interval={drug.interval}/>
+          })
         }
 
       </div>
     );
   }
 }
+
+class Pills extends Component {
+  render() {
+    return (
+      <div >
+        //-----------
+        <p>{this.props.name}</p>
+        <p>{this.props.dose}</p>
+        <p>{this.props.interval}</p>
+        //-----------
+
+      </div>
+      );
+  }
+}
+
+//-----------------------------
 
 class Popup extends Component {
 
@@ -73,23 +94,24 @@ class Popup extends Component {
       dose: this.state.dose,
       interval: this.state.interval
     }
+    this.props.useData(newDrugData);
 
-    axios
-    .post("/profile/data/new-drug", newDrugData)
-    .then((res) => {
-      console.log(res);
-      axios
-      .get("/profile/data/new-drug")
-      .then((res) => {
-        console.log(res.data);
-        this.setState ({
-          name: res.data.name,
-          dose: res.data.dose,
-          interval: res.data.interval
-        })
-        this.props.useData(this.state.name, this.state.dose, this.state.interval);
-      })
-    })
+    // axios
+    // .post("/profile/data/new-drug", newDrugData)
+    // .then((res) => {
+    //   console.log(res);
+    //   axios
+    //   .get("/profile/data/new-drug")
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     this.setState ({
+    //       name: res.data.name,
+    //       dose: res.data.dose,
+    //       interval: res.data.interval
+    //     })
+    //     this.props.useData(this.state.name, this.state.dose, this.state.interval);
+    //   })
+    // })
 
     this.props.closePopup();
   }
@@ -113,14 +135,14 @@ class Popup extends Component {
                 Dose :
                 <input type="text"
                        placeholder= "dose"
-                       value={this.state.password}
+                       value={this.state.dose}
                        onChange={this.handleDose} />
               </label>
               <label>
                 Interval :
                 <input type="text"
                        placeholder= "interval"
-                       value={this.state.password}
+                       value={this.state.interval}
                        onChange={this.handleInterval} />
               </label>
               <input type="submit" value="Submit" />
