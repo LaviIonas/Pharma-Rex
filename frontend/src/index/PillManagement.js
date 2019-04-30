@@ -1,45 +1,65 @@
 import React, {Component} from 'react';
 import './Index.css';
+import DrugPopup from "./NewDrugPopupForm";
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001'
+
 
 class PillManagment extends Component {
   constructor () {
     super();
     this.state = {
       popup: false,
-      name: "",
-      dose: "",
-      interval: "",
-      drugArray: [{name: "Bob", dose: "Ten million", interval: "30 sec"}, {name: "Bob", dose: "Ten million", interval: "30 sec"}]
+      drugArray: []
     }
   }
-
+  //Toggle the popup based on a boolean 'popup'
   togglePopup = () => {
     this.setState({
       popup: !this.state.popup
     });
   }
 
+  //Push the data from the form into an array of other drug objects
   useData = (data) => {
-
+    //Adds Drug 'data' to the array once form submitted
     this.setState({
       drugArray: [...this.state.drugArray, data]
     })
-    console.log(this.state.drugArray);
+  }
+
+  componentDidMount () {
+    //Upon mounting fill the drug array with all previously existing drugs
+    axios.
+    get("/profile/data/fill-array")
+    .then(res => {
+      //For each object in the array push to array
+      res.data.array.forEach((drug) => {
+        this.setState({
+        //Seed the array
+        drugArray: [...this.state.drugArray, drug]
+        })
+      })
+
+    })
   }
 
   render () {
     return (
       <div>
-        <button onClick={this.togglePopup}>+</button>
+        <button onClick={this.togglePopup}>ADD NEW DRUG</button>
         {this.state.popup ?
-          <Popup closePopup={this.togglePopup} useData = {this.useData}/>
+          <DrugPopup closePopup={this.togglePopup} useData = {this.useData}/>
           : null
         }
         {
           this.state.drugArray.map(drug => {
-            return <Pills name={drug.name} dose={drug.dose} interval={drug.interval}/>
+            return <Pills name={drug.name}
+                          dose={drug.dose}
+                          totala={drug.total}
+                          interval={drug.interval}
+                          time={drug.time} />
+
           })
         }
 
@@ -55,103 +75,14 @@ class Pills extends Component {
         //-----------
         <p>{this.props.name}</p>
         <p>{this.props.dose}</p>
+        <p>{this.props.total}</p>
         <p>{this.props.interval}</p>
+        <p>{this.props.time}</p>
+
         //-----------
 
       </div>
       );
-  }
-}
-
-//-----------------------------
-
-class Popup extends Component {
-
-  constructor () {
-    super();
-    this.state = {
-      name: "",
-      dose: "",
-      interval: ""
-    }
-  }
-
-  handleName = (event) => {
-    this.setState({name: event.target.value});
-  }
-  handleDose = (event) => {
-    this.setState({dose: event.target.value});
-  }
-  handleInterval = (event) => {
-    this.setState({interval: event.target.value});
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    const newDrugData = {
-      name: this.state.name,
-      dose: this.state.dose,
-      interval: this.state.interval
-    }
-    this.props.useData(newDrugData);
-
-    // axios
-    // .post("/profile/data/new-drug", newDrugData)
-    // .then((res) => {
-    //   console.log(res);
-    //   axios
-    //   .get("/profile/data/new-drug")
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     this.setState ({
-    //       name: res.data.name,
-    //       dose: res.data.dose,
-    //       interval: res.data.interval
-    //     })
-    //     this.props.useData(this.state.name, this.state.dose, this.state.interval);
-    //   })
-    // })
-
-    this.props.closePopup();
-  }
-
-  render () {
-    return (
-      <div className='popup'>
-        <div className='popup_inner'>
-          <div >
-            <h2 className="home-page">Add a new Drug</h2>
-            <button onClick={this.props.closePopup}>X</button>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                Name :
-                <input type="text"
-                       placeholder= "Name of the Drug"
-                       value={this.state.name}
-                       onChange={this.handleName} />
-              </label>
-              <label>
-                Dose :
-                <input type="text"
-                       placeholder= "dose"
-                       value={this.state.dose}
-                       onChange={this.handleDose} />
-              </label>
-              <label>
-                Interval :
-                <input type="text"
-                       placeholder= "interval"
-                       value={this.state.interval}
-                       onChange={this.handleInterval} />
-              </label>
-              <input type="submit" value="Submit" />
-            </form>
-
-          </div>
-        </div>
-      </div>
-    );
   }
 }
 
