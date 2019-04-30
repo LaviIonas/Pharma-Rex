@@ -40,12 +40,18 @@ label {
   display: block;
 }
 
-.navbar {
-  text-align: left;
+.headertext {
+  margin:auto;
   font-family: "Nunito", sans-serif;
-  font-size: 30px;
+  font-size: 40px;
   color: mediumseagreen;
 }
+
+.logo {
+      float: right;
+      padding-top: 15px;
+      padding-right: 10px;
+    }
 
 .home-page {
   margin-top: 100px;

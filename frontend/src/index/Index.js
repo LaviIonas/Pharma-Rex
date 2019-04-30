@@ -18,6 +18,7 @@ import ProfileInfo from './ProfileInfo';
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
+import logo from '../../images/tyrannosaurus-rex.png'
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001';
 
@@ -25,7 +26,10 @@ axios.defaults.baseURL = 'http://localhost:3001';
 function ComponentManager() {
   return (
   <div>
-  <h2 className="navbar">Navbar will go here</h2>
+  <nav className="navbar">
+  <h2 className="headertext">Pharma Rex</h2>
+  <img className="logo" src={logo} alt="Logo" />
+  </nav>
     <Router>
       <div>
         <Route exact path="/" component={Home}/>
@@ -95,7 +99,7 @@ componentDidMount() {
       <div>
         <PreSideBar />
         <div>
-          <h2 className="home-page">Pharma Rex</h2>
+          <h2 className="home-page"></h2>
           <h2 className="secondary-line">The best way to track your medications. </h2>
 
           <ul className="pitch">
