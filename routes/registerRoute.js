@@ -12,12 +12,12 @@ module.exports = (knex) => {
       .asCallback(function (err, rows) {
         if (err) {
           res.status(500).end()
-          return
+            return
         }
         req.session.user_id = rows[0]
         res.status(200).end();
       })
-      //replace "req.body.age" with "cargiver"
+      //replace "req.body.age" with "caregiver"
     } else if (req.body.age) {
       knex('caregivers').insert({ email: req.body.username, password: req.body.password }).returning('id')
       .asCallback(function (err, rows) {
@@ -35,6 +35,3 @@ module.exports = (knex) => {
 
   return router;
 }
-
-
-
