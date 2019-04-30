@@ -11,18 +11,22 @@ class ProfileInfo extends Component {
     super();
     this.state = {
       name: "",
-      careID: ""
+      careID: "",
+      doctor: "",
+      pharmacyNum: ""
     }
   }
 
   componentDidMount() {
     axios
-    .get("/profile/data/request")
+    .get("/profile/data/profileInfo")
     .then((res) => {
       console.log(res);
       this.setState ({
         name: res.data.name,
-        careID: res.data.careID
+        careID: res.data.careID,
+        doctor: res.data.doctor,
+        pharmacyNum: res.data.pharmacyNum
       })
     })
   }
@@ -31,7 +35,9 @@ class ProfileInfo extends Component {
       <div>
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p>Name: {this.state.name}</p>
-        <p>ID: {this.state.careID}</p>
+        <p>ID for Caretaker: {this.state.careID}</p>
+        <p>Doctor: {this.state.doctor}</p>
+        <p>Pharmacy Number: {this.state.pharmacyNum}</p>
 
       </div>
     );
