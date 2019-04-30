@@ -3,7 +3,6 @@ import './Index.css';
 
 import PatientRegisterForm from './PatientRegisterForm';
 import CaregiverRegisterForm from './CaregiverRegisterForm';
-import RegisterForm from './RegisterForm';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -31,9 +30,25 @@ class RegisterPopup extends Component {
     })
   }
 
+  /*
+  <Modal show={this.props.show} onHide={this.props.closePopup}>
+          <Modal.Header closeButton>
+          <Modal.Title>Register for Pharma Rex</Modal.Title>
+           </Modal.Header>
+        <Modal.Body><CaregiverRegisterForm /></Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.props.closePopup}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.props.closePopup}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+  */
+
   render () {
     return (
-<<<<<<< HEAD
       <div className='popup'>
         <div className='popup_inner'>
           <div >
@@ -59,22 +74,6 @@ class RegisterPopup extends Component {
           </div>
         </div>
       </div>
-=======
-      <Modal show={this.props.show} onHide={this.props.closePopup}>
-          <Modal.Header closeButton>
-          <Modal.Title>Register for Pharma Rex</Modal.Title>
-           </Modal.Header>
-        <Modal.Body><RegisterForm /></Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.closePopup}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={this.props.closePopup}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
->>>>>>> Design
     );
   }
 }
