@@ -31,43 +31,18 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 
-/*
-
-Axios Example use
-Get:
-  getData = () => {
-    axios
-    .get("/")
-    .then((res) => {
-      this.setState({ message: res.data.message })
-    })
-  }
-Post:
-  sendData = () => {
-    const msg = {
-      a: "1"
-    }
-    axios
-    .post("/", msg)
-    .then((res) => {
-      console.log(res);
-      console.log(res.data);
-    })
-  }
-*/
 
 // Seperated Routes for each Resource
-const getRoute = require("./routes/getRequest");
 const loginRoute = require("./routes/loginRoute");
 const registerRoute = require("./routes/registerRoute");
 const profileRoute = require("./routes/profileRoute");
+const profileRoute = require("./routes/caretakerRoute");
 
 // Mount all resource routes
-
-app.use("/", getRoute(knex));
 app.use("/login", loginRoute(knex));
 app.use("/register", registerRoute(knex));
-
+app.use("/profile", profileRoute(knex));
+app.use("/caretaker", caretakerRoute(knex));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
