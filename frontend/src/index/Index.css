@@ -40,6 +40,13 @@ label {
   display: block;
 }
 
+.navbar {
+  text-align: left;
+  font-family: "Nunito", sans-serif;
+  font-size: 30px;
+  color: mediumseagreen;
+}
+
 .home-page {
   margin-top: 100px;
   text-align: center;
