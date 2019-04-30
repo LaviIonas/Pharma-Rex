@@ -16,6 +16,9 @@ import LoginPopup from './LoginPopup';
 import PillManagement from './PillManagement';
 import ProfileInfo from './ProfileInfo';
 
+import CaretakerInfo from './CaretakerInfo';
+
+
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 import axios from 'axios';
@@ -206,7 +209,9 @@ class Profile extends Component {
 
   constructor () {
     super ();
-    this.state = {}
+    this.state = {
+
+    }
   }
 
   render() {
@@ -228,7 +233,7 @@ class Caretaker extends Component {
   render() {
     return (
       <div>
-        Caretaker
+        <CaretakerInfo />
       </div>
 
     );
