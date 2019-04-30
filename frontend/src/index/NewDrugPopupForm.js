@@ -1,3 +1,4 @@
+import React, {Component} from 'react';
 import './Index.css';
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001'

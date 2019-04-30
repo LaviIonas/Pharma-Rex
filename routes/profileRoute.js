@@ -18,7 +18,7 @@ module.exports = () => {
   //This route is responcible for filling the state array of existing added drugs
   router.get("data/fill-array", (req,res) => {
     //Create an array of objects of the drug info
-    //Example: [{name: "Heroin", dose: "2"}, {name: "Cocain", dose: "1"}]
+    //Example: array: [{name: "Heroin", dose: "2"}, {name: "Cocain", dose: "1"}]
 
   })
 

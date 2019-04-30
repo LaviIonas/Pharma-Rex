@@ -10,7 +10,7 @@ module.exports = () => {
   //Caretaker page as well as feeding the array of patients
   router.get("data/caretakerInfo", (req,res) => {
     //respond with the name and array of patients
-    //Example: {name: "Bob", [{name: "Joe"}, {name: "Candy"}]}
+    //Example: {name: "Bob", array: [{name: "Joe"}, {name: "Candy"}]}
 
   })
 

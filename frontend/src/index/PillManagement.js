@@ -54,12 +54,12 @@ class PillManagment extends Component {
         }
         {
           this.state.drugArray.map(drug => {
-            return <Pills name={drug.name}
-                          dose={drug.dose}
-                          totala={drug.total}
-                          interval={drug.interval}
-                          time={drug.time} />
-
+            return
+              <Pills name={drug.name}
+                     dose={drug.dose}
+                     total={drug.total}
+                     interval={drug.interval}
+                     time={drug.time} />
           })
         }
 

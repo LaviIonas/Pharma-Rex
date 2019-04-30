@@ -36,7 +36,7 @@ app.use(cookieSession({
 const loginRoute = require("./routes/loginRoute");
 const registerRoute = require("./routes/registerRoute");
 const profileRoute = require("./routes/profileRoute");
-const profileRoute = require("./routes/caretakerRoute");
+const caretakerRoute = require("./routes/caretakerRoute");
 
 // Mount all resource routes
 app.use("/login", loginRoute(knex));

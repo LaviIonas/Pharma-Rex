@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Index.css';
 import axios from 'axios';
-import profilePic from '../care.svg';
+import profilePic from '../ron-swan.png';
 axios.defaults.baseURL = 'http://localhost:3001'
 
 
@@ -34,9 +34,10 @@ class CaretakerInfo extends Component {
       <div>
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p>Name: {this.state.name}</p>
+        {
         this.state.PatientArray.map(patient => {
-            return <Patients name={patient.name} />
-
+          return
+            <Patients name={patient.name} />
           })
         }
       </div>
