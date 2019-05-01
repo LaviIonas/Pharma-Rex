@@ -34,7 +34,7 @@ function ComponentManager() {
         <Route exact path="/" component={Home}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/caretaker" component={Caretaker}/>
-
+        <Route path="/caretaker_info" component={CaretakerInfo}/>
         <Route path="/about" component={About}/>
         <Route path="/contact" component={Contact}/>
 

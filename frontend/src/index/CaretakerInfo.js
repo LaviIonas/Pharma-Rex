@@ -9,35 +9,35 @@ class CaretakerInfo extends Component {
   constructor () {
     super();
     this.state = {
-      name: "",
-      patientArray: []
+      name: "Caregiver",
+      patientArray: [{name: "Amelia"}, {name: "Catherine"}, {name: "Johnathan"}]
     }
   }
 
-  componentDidMount() {
-    axios
-    .get("/caretaker/data/caretakerInfo")
-    .then((res) => {
-      console.log(res);
-      this.setState ({ name: res.data.name })
-      res.data.array.forEach((patient) => {
-        this.setState({
-        //Seed the array
-        patientArray: [...this.state.patientArray, patient]
-        })
-      })
-
-    })
-  }
+  // componentDidMount() {
+  //   // axios
+  //   // .get("/caretaker/data/caretakerInfo")
+  //   // .then((res) => {
+  //   //   console.log(res);
+  //   //   this.setState ({ name: res.data.name })
+  //   //   res.data.array.forEach((patient) => {
+  //   //     this.setState({
+  //   //     //Seed the array
+  //   //     patientArray: [...this.state.patientArray, patient]
+  //   //     })
+  //   //   })
+  //   //
+  //   // })
+  // }
   render () {
+    console.log("Running Caretaker info");
     return (
-      <div>
+      <div className="CaretakerStyle">
         <img src={profilePic} className = "profile-pic" alt="Logo" />
-        <p>Name: {this.state.name}</p>
+        <p> Name: {this.state.name} </p>
         {
-        this.state.PatientArray.map(patient => {
-          return
-            <Patients name={patient.name} />
+          this.state.patientArray.map(patient => {
+            return <Patient name={patient.name} />
           })
         }
       </div>
@@ -45,10 +45,11 @@ class CaretakerInfo extends Component {
   }
 }
 
-class Patients extends Component {
+class Patient extends Component {
   render() {
+    console.log(this.props.name);
     return (
-      <div >
+      <div className="Caregiverpatientliststyle" >
         //-----------//
 
         <p>{this.props.name}</p>
