@@ -173,17 +173,20 @@ class Home extends Component {
           <button onClick={this.toggleLogin}>Login</button>
           <button onClick={this.toggleRegister}>Register</button>
 
-          {this.state.showRegister ?
-            <RegisterPopup closePopup={this.toggleRegister} redirectPatient={this.redirectPatient} redirectCaregiver={this.redirectCaregiver}/>
-            : null
-          }
+
+            <RegisterPopup
+            showRegister={this.state.showRegister}
+              closePopup={this.toggleRegister}
+              redirectPatient={this.redirectPatient}
+              redirectCaregiver={this.redirectCaregiver}
+              />
 
             <LoginPopup
             showLogin={this.state.showLogin}
               closePopup={this.toggleLogin}
               redirect={this.redirectLogin}
             />
-          
+
 
           {this.state.redirectLogin ?
             <Redirect to = {"/profile"} />

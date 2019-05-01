@@ -57,6 +57,7 @@ class PillManagment extends Component {
         {
           this.state.drugArray.map(drug => {
             return <Pills
+                          key={drug.name}
                           name={drug.name}
                           dose={drug.dose}
                           total={drug.total}
@@ -74,7 +75,7 @@ class Pills extends Component {
   render() {
     return (
       <div className="addPillPillManagement" >
-        
+
         <p className="drugNamePillManagement">Drug Name: {this.props.name}</p>
         <p className="dosePillManagement">Dose: {this.props.dose}</p>
         <p className="totalPillsPillManagement">Total Pills: {this.props.total}</p>
