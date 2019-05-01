@@ -37,12 +37,16 @@ const loginRoute = require("./routes/loginRoute");
 const registerRoute = require("./routes/registerRoute");
 const profileRoute = require("./routes/profileRoute");
 const caretakerRoute = require("./routes/caretakerRoute");
+const settingsRoute = require("./routes/settingsRoute");
+
 
 // Mount all resource routes
 app.use("/login", loginRoute(knex));
 app.use("/register", registerRoute(knex));
 app.use("/profile", profileRoute(knex));
 app.use("/caretaker", caretakerRoute(knex));
+app.use("/settings", settingsRoute(knex));
+
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
