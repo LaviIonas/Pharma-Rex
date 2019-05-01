@@ -9,10 +9,6 @@ module.exports = (knex) => {
   //Route Recieves Drug data when user creates a new one
   router.post("/data/new-drug", (req, res) => {
     const {name, dose, total, interval, time} = req.body;
-    console.log(req.body)
-    console.log(req.body.name)
-    console.log("PATIENT ID ON POST--------->", req.session.patient_id)
-    
 
   knex('medications').insert({ medication_name: name}).returning('id')
   .asCallback(function (err, rows) {
@@ -40,7 +36,7 @@ module.exports = (knex) => {
 
   //Empty Route sending an ARRAY of objects of drugs
   //This route is responcible for filling the state array of existing added drugs
-  router.get("data/fill-array", (req,res) => {
+  router.get("/data/fill-array", (req,res) => {
     console.log("Fill ARRAY SEE on click", req.session.patient_id )
     knex('prescriptions').select('name').where({ id: req.session.patient_id})
     .then (rows => {

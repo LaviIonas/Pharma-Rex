@@ -16,7 +16,7 @@ class CaretakerInfo extends Component {
 
   componentDidMount() {
     axios
-    .get("/caretaker/data/caretakerInfo")
+    .get("/caretaker/data/caretakerInfo", {withCredentials: true})
     .then((res) => {
       console.log(res);
       this.setState ({ name: res.data.name })
@@ -32,14 +32,14 @@ class CaretakerInfo extends Component {
   render () {
     return (
       <div>
-        <img src={profilePic} className = "profile-pic" alt="Logo" />
+        {/* <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p>Name: {this.state.name}</p>
         {
         this.state.PatientArray.map(patient => {
           return
             <Patients name={patient.name} />
           })
-        }
+        } */}
       </div>
     );
   }
