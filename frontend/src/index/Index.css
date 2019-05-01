@@ -293,3 +293,25 @@ label {
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
+.ProfileInfo {
+  text-indent: 20px;
+}
+
+/*Pill Management CSS*/
+.addpill {
+  background-color: mediumseagreen;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.addpill:hover {
+  background-color: #f1f1f1;
+}

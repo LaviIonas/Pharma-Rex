@@ -32,6 +32,9 @@ class ProfileInfo extends Component {
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p>Name: {this.state.name}</p>
         <p>ID: {this.state.careID}</p>
+        <p>Prescription:</p>
+        <p>Physician name</p>
+        <p>Pharmacy Number</p>
 
       </div>
     );

@@ -33,7 +33,7 @@ class PillManagment extends Component {
     return (
       <div>
 
-        <button onClick={this.togglePopup}>+</button>
+        <button class="addpill" onClick={this.togglePopup}>Add Pill</button>
         {this.state.popup ?
           <Popup closePopup={this.togglePopup} useData = {this.useData}/>
           : null

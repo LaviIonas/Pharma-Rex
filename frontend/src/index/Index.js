@@ -165,7 +165,7 @@ class Profile extends Component {
       <div>
         <PostSideBar />
 
-        <div>
+        <div className="ProfileInfo">
           <ProfileInfo />
           <PillManagement />
         </div>
