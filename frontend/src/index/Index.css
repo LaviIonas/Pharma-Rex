@@ -287,3 +287,73 @@ label {
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* Pill Management */
+
+.addPill {
+  background-color: mediumseagreen;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+/*
+.addPillPillManagement {
+  box-sizing: border-box;
+  border: solid black 2px;
+  border-radius: 15px 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+*/
+.addPillPillManagement {
+  font-family: "Nunito", sans-serif;
+  background: white;
+  max-width: 720px;
+  margin: auto;
+  margin-top: 21px;
+  margin-bottom: 21px;
+  border-radius: 6px;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  padding: 24px 12px;
+  list-style-type: none;
+  box-shadow: 0px 3px 12px -2px rgba(0, 0, 0, 0.75);
+}
+
+.drugListStyle {
+  padding-left: 25px;
+}
+
+.drugNamePillManagement {
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.dosePillManagement {
+  padding-left: 10px;
+}
+
+.totalPillsPillManagement {
+  padding-left: 10px;
+}
+
+.intervalPillManagement {
+  padding-left: 10px;
+}
+
+.timePillManagement {
+  padding-left: 10px;
+}
+
+/*Profile Styles */
+.profileStyle {
+  padding-left: 25px;
+  font-family: "Nunito", sans-serif;
+}

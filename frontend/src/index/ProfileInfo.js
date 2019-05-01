@@ -33,12 +33,13 @@ class ProfileInfo extends Component {
   render () {
     return (
       <div>
+      <div className="profileStyle">
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p>Name: {this.state.name}</p>
         <p>ID for Caretaker: {this.state.careID}</p>
         <p>Doctor: {this.state.doctor}</p>
         <p>Pharmacy Number: {this.state.pharmacyNum}</p>
-
+        </div>
       </div>
     );
   }
