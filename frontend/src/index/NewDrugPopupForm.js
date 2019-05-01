@@ -50,7 +50,7 @@ class NewDrugPopupForm extends Component {
 
     //Sends Data to the profileRoute under post("/data/new-drug")
     axios
-    .post("/profile/data/new-drug", newDrugData)
+    .post("/profile/data/new-drug", newDrugData, {withCredentials: true})
     .then((res) => {
       console.log(res);
     })

@@ -38,7 +38,7 @@ module.exports = (knex) => {
   
     if (req.body.status === 'Patient') {
       knex('patients').insert({ email: req.body.username, password: req.body.password }).returning('id')
-      .asCallback((err, rows) => {
+      .asCallback(function (err, rows) {
         if (err) {
           res.status(500).end()
           return
@@ -50,7 +50,7 @@ module.exports = (knex) => {
    
     } else if (req.body.status === 'Caregiver') {
       knex('caregivers').insert({ email: req.body.username, password: req.body.password }).returning('id')
-      .asCallback((err, rows) => {
+      .asCallback(function (err, rows) {
         console.log ("ROWS", rows)
         if (err) {
           res.status(500).end()
@@ -58,6 +58,7 @@ module.exports = (knex) => {
         }
         
         req.session.caregiver_id = rows[0]
+        console.log("ROW[0]", rows[0])
         console.log("REGISTER CAREGIVER_ID", req.session.caregiver_id)
         res.status(200).end();
       })

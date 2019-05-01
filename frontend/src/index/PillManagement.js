@@ -31,7 +31,7 @@ class PillManagment extends Component {
   componentDidMount () {
     //Upon mounting fill the drug array with all previously existing drugs
     axios.
-    get("/profile/data/fill-array")
+    get("/profile/data/fill-array", {withCredentials: true})
     .then(res => {
       //For each object in the array push to array
       res.data.array.forEach((drug) => {
