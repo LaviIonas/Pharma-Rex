@@ -10,24 +10,24 @@ class CaretakerInfo extends Component {
     super();
     this.state = {
       name: "",
-      patientArray: []
+      patientArray: [{patient: "Amelia"}, {patient: "Jonny"}, {patient: "Katherine"}]
     }
   }
 
   componentDidMount() {
-    axios
-    .get("/caretaker/data/caretakerInfo")
-    .then((res) => {
-      console.log(res);
-      this.setState ({ name: res.data.name })
-      res.data.array.forEach((patient) => {
-        this.setState({
-        //Seed the array
-        patientArray: [...this.state.patientArray, patient]
-        })
-      })
-
-    })
+    // axios
+    // .get("/caretaker/data/caretakerInfo")
+    // .then((res) => {
+    //   console.log(res);
+    //   this.setState ({ name: res.data.name })
+    //   res.data.array.forEach((patient) => {
+    //     this.setState({
+    //     //Seed the array
+    //     patientArray: [...this.state.patientArray, patient]
+    //     })
+    //   })
+    //
+    // })
   }
   render () {
     return (
@@ -35,7 +35,7 @@ class CaretakerInfo extends Component {
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p>Name: {this.state.name}</p>
         {
-        this.state.PatientArray.map(patient => {
+        this.state.patientArray.map(patient => {
           return
             <Patients name={patient.name} />
           })
