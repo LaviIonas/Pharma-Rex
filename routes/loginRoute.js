@@ -33,6 +33,7 @@ module.exports = (knex) => {
         req.session.patient_id = rows[0].id
         console.log("PATIENT_ID LOGGED IN ------>", req.session.patient_id )
         res.status(200).end()
+
       }
     });
 

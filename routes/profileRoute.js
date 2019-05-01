@@ -11,8 +11,8 @@ module.exports = (knex) => {
     const {name, dose, total, interval, time} = req.body;
     console.log(req.body)
     console.log(req.body.name)
-    console.log("PATIENT ID", req.session.patient_id)
-    let medID = []
+    console.log("PATIENT ID ON POST--------->", req.session.patient_id)
+    
 
   knex('medications').insert({ medication_name: name}).returning('id')
   .asCallback(function (err, rows) {
@@ -41,17 +41,35 @@ module.exports = (knex) => {
   //Empty Route sending an ARRAY of objects of drugs
   //This route is responcible for filling the state array of existing added drugs
   router.get("data/fill-array", (req,res) => {
+    console.log("Fill ARRAY SEE on click", req.session.patient_id )
+    knex('prescriptions').select('name').where({ id: req.session.patient_id})
+    .then (rows => {
+      const drugs = [{
+        name: rows[0].name
+      }]
     //Create an array of objects of the drug info
     //Example: array: [{name: "Heroin", dose: "2"}, {name: "Cocain", dose: "1"}]
-
+    res.json(drugs)
   })
+});
 
   //Empty Route for Profile info (requested varibales are accepted (res.data.variable) as mentioned)
   router.get("/data/profileInfo", (req, res) => {
+    
     //Send me data from the DB please (name, careID, doctor, pharmacyNum)
-    knex('patients').select('*')
-    .asC
-  });
+    knex('patients').select('*').where({ id: req.session.patient_id})
+    .then (rows => {
+      const patientInfo = {
+        name: rows[0].name,
+        careID: rows[0].id,
+        doctor: rows[0].doctor_name,
+        pharmacyNum: rows[0].pharmacy_number
+      }
+      res.json(patientInfo)
+    })
+    
 
+  });
+  
   return router;
 }

@@ -19,7 +19,7 @@ class ProfileInfo extends Component {
 
   componentDidMount() {
     axios
-    .get("/profile/data/profileInfo")
+    .get("/profile/data/profileInfo", {withCredentials: true})
     .then((res) => {
       console.log(res);
       this.setState ({
