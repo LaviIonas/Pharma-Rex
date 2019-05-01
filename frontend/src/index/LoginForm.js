@@ -7,7 +7,9 @@ class LoginForm extends Component {
 
   state = {
     username: "",
-    password: ""
+    password: "",
+    loggedIn: false,
+    loginError: true
   }
 
   handleUsername = (event) => {
@@ -32,21 +34,30 @@ class LoginForm extends Component {
       axios
       .get("/login/response", {withCredentials: true})
       .then((res) => {
-        console.log(res.data);
-        if(res.data.loggedIn)  {
-          alert ("Logged In");
-        } else {
-          alert ("Error occured when logging in");
+        this.setState({
+          loggedIn: res.data.loggedIn,
+          loginError: res.data.loginError
+        })
+        if(this.state.loggedIn)  {
+          this.props.whenSubmit();
+        } else if (this.state.loginError) {
+          this.setState({
+            username: "",
+            password: ""
+          })
         }
       })
     })
-
-    this.props.whenSubmit();
   }
 
   render() {
     return (
       <div>
+        {
+          this.state.loginError ?
+            <p style={{color: "red"}}>Username or Password is Incorrect</p>
+          : null
+        }
         <form onSubmit={this.handleSubmit}>
               <label>
                 Username :

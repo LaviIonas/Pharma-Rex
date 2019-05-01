@@ -5,12 +5,7 @@ import LoginForm from './LoginForm';
 class LoginPopup extends Component {
   constructor () {
     super();
-    this.state = {
-      loggedIn: true,
-    }
   }
-
-
 
   render () {
     return (

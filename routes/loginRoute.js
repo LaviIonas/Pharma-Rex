@@ -5,14 +5,10 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-  // router.post("/", (req, res) => {
-  //   console.log("Username:", req.body.username);
-  //   console.log("Password:", req.body.password);
-  //   res.status(200).end();
-  // });
-
+  let login = false;
+  let error = false;
   router.post("/", (req, res) => {
- 
+
     knex.select('id').from('patients').where({ email: req.body.username, password: req.body.password })
     .asCallback((err, rows) => {
       if (err) {
@@ -24,11 +20,17 @@ module.exports = (knex) => {
           if (err) {
             res.status(500).end()
             return
+          } else if (rows[0] === undefined) {
+            console.log("Noting was found");
+            error = true;
+            res.status(404).end()
           }
+          login = true;
           req.session.user_id = rows[0].id
           console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
-          res.status(200).end() 
-        }) 
+
+          res.status(200).end()
+        })
       } else {
         req.session.user_id = rows[0].id
         console.log("LOGGED IN AS PATIENT, REDIRED TO /PATIENT/ID", rows[0].id)
@@ -39,11 +41,11 @@ module.exports = (knex) => {
   });
 
   router.get("/response", (req, res) => {
-    if(true){
-      res.json({loggedIn: true});
+    if(login){
+      res.json({loggedIn: true, loginError: false});
+    } else if (error) {
+      res.json({loggedIn: false, loginError: true})
     }
-
-    console.log("replied to React loggin form");
   });
 
   return router;
