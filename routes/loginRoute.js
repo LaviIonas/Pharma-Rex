@@ -25,18 +25,19 @@ module.exports = (knex) => {
             res.status(500).end()
             return
           }
-          req.session.user_id = rows[0].id
-          console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
+          req.session.caregiver_id = rows[0].id
+          console.log("CAREGIVER_ID LOGGED IN ------>", req.session.caregiver_id )
           res.status(200).end() 
         }) 
       } else {
-        req.session.user_id = rows[0].id
-        console.log("LOGGED IN AS PATIENT, REDIRED TO /PATIENT/ID", rows[0].id)
+        req.session.patient_id = rows[0].id
+        console.log("PATIENT_ID LOGGED IN ------>", req.session.patient_id )
         res.status(200).end()
       }
     });
 
   });
+
 
   router.get("/response", (req, res) => {
     if(true){
