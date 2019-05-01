@@ -4,11 +4,35 @@ const express = require('express');
 const router  = express.Router();
 
 
-module.exports = () => {
+module.exports = (knex) => {
 
   //Route Recieves Drug data when user creates a new one
   router.post("/data/new-drug", (req, res) => {
     const {name, dose, total, interval, time} = req.body;
+    console.log(req.body)
+    console.log(req.body.name)
+    console.log("PATIENT ID", req.session.patient_id)
+    let medID = []
+
+  knex('medications').insert({ medication_name: name}).returning('id')
+  .asCallback(function (err, rows) {
+          if (err) {
+            res.status(500).end()
+            return
+          }
+
+          knex('prescriptions').insert({ medication_id: rows[0], dosage: dose, patient_id: req.session.patient_id, interval: interval, start_time: time, total_number_pills: total})
+          .asCallback(function (err, rows) {
+            if (err) {
+              res.status(500).end()
+              return
+            }
+            
+            console.log("MED ID", medID)
+        
+          })
+        })
+
 
 
     res.status(200).end();
@@ -25,6 +49,8 @@ module.exports = () => {
   //Empty Route for Profile info (requested varibales are accepted (res.data.variable) as mentioned)
   router.get("/data/profileInfo", (req, res) => {
     //Send me data from the DB please (name, careID, doctor, pharmacyNum)
+    knex('patients').select('*')
+    .asC
   });
 
   return router;
