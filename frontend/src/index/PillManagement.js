@@ -31,7 +31,7 @@ class PillManagment extends Component {
   componentDidMount () {
     //Upon mounting fill the drug array with all previously existing drugs
     axios.
-    get("/profile/data/fill-array")
+    get("/profile/data/fill-array", {withCredentials: true})
     .then(res => {
       //For each object in the array push to array
       res.data.array.forEach((drug) => {
@@ -40,10 +40,16 @@ class PillManagment extends Component {
         drugArray: [...this.state.drugArray, drug]
         })
       })
+      // console.log(this.state.drugArray);
 
     })
   }
 
+    // renderPills = () => {
+    //   let pillList = [];
+      
+    //   return pillList;
+    // }
   render () {
     return (
       <div>
@@ -52,16 +58,15 @@ class PillManagment extends Component {
           <DrugPopup closePopup={this.togglePopup} useData = {this.useData}/>
           : null
         }
-        {
-          this.state.drugArray.map(drug => {
-            return
-              <Pills name={drug.name}
-                     dose={drug.dose}
-                     total={drug.total}
-                     interval={drug.interval}
-                     time={drug.time} />
-          })
-        }
+        {this.state.drugArray.map(drug => {
+          return(
+            <Pills name={drug.name}
+              dose={drug.dose}
+              total={drug.total}
+              interval={drug.interval}
+              time={drug.time} />
+            );
+          })}
 
       </div>
     );
