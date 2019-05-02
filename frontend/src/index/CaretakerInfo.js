@@ -9,8 +9,8 @@ class CaretakerInfo extends Component {
   constructor () {
     super();
     this.state = {
-      name: "",
-      patientArray: []
+      name: "Caregiver",
+      patientArray: [{name: "Amelia"}, {name: "Catherine"}, {name: "Johnathan"}]
     }
   }
 
@@ -33,10 +33,11 @@ class CaretakerInfo extends Component {
   }
   
   render () {
+    console.log("Running Caretaker info");
     return (
-      <div>
+      <div className="CaretakerStyle">
         <img src={profilePic} className = "profile-pic" alt="Logo" />
-        <p>Name: {this.state.name}</p>
+        <p> Name: {this.state.name} </p>
         {
         this.state.patientArray.map(patient => <Patients name={patient.name} />)
         }
@@ -48,10 +49,11 @@ class CaretakerInfo extends Component {
   }
 }
 
-class Patients extends Component {
+class Patient extends Component {
   render() {
+    console.log(this.props.name);
     return (
-      <div >
+      <div className="Caregiverpatientliststyle" >
         //-----------//
 
         <p>{this.props.name}</p>

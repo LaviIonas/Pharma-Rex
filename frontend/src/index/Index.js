@@ -33,7 +33,7 @@ function ComponentManager() {
         <Route exact path="/" component={Home}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/caretaker" component={Caretaker}/>
-
+        <Route path="/caretaker_info" component={CaretakerInfo}/>
         <Route path="/about" component={About}/>
         <Route path="/contact" component={Contact}/>
 
@@ -160,20 +160,26 @@ class Home extends Component {
             </p>
           </div>
 
-          <button onClick={sendText}>Send Text</button>
+          // <button onClick={sendText}>Send Text</button>//
 
 
           <button onClick={this.toggleLogin}>Login</button>
           <button onClick={this.toggleRegister}>Register</button>
 
-          {this.state.showRegister ?
-            <RegisterPopup closePopup={this.toggleRegister} redirectPatient={this.redirectPatient} redirectCaregiver={this.redirectCaregiver}/>
-            : null
-          }
-          {this.state.showLogin ?
-            <LoginPopup closePopup={this.toggleLogin} redirect={this.redirectLogin}/>
-            : null
-          }
+
+            <RegisterPopup
+            showRegister={this.state.showRegister}
+              closePopup={this.toggleRegister}
+              redirectPatient={this.redirectPatient}
+              redirectCaregiver={this.redirectCaregiver}
+              />
+
+            <LoginPopup
+            showLogin={this.state.showLogin}
+              closePopup={this.toggleLogin}
+              redirect={this.redirectLogin}
+            />
+
 
           {this.state.redirectLogin ?
             <Redirect to = {"/profile"} />
