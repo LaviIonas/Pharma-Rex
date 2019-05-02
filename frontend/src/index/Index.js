@@ -71,7 +71,8 @@ class Home extends Component {
     this.state = {
       showLogin: false,
       showRegister: false,
-      redirectLogin: false,
+      redirectLoginP: false,
+      redirectLoginC: false,
       redP: false,
       redC: false
     }
@@ -89,9 +90,14 @@ class Home extends Component {
     });
   }
 
-  redirectLogin = () => {
+  redirectLoginP = () => {
     this.setState({
-      redirectLogin: true
+      redirectLoginP: true
+    })
+  }
+  redirectLoginC = () => {
+    this.setState({
+      redirectLoginC: true
     })
   }
 
@@ -177,11 +183,17 @@ class Home extends Component {
             <LoginPopup
             showLogin={this.state.showLogin}
               closePopup={this.toggleLogin}
-              redirect={this.redirectLogin}
+              redirectP={this.redirectLoginP}
+              redirectC={this.redirectLoginC}
+
             />
 
-          {this.state.redirectLogin ?
+          {this.state.redirectLoginP ?
             <Redirect to = {"/profile"} />
+            : null
+          }
+          {this.state.redirectLoginC ?
+            <Redirect to = {"/caretaker"} />
             : null
           }
 
