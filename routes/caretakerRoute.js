@@ -9,23 +9,26 @@ module.exports = (knex) => {
   //Empty Route that takes care of feeding information to the
   //Caretaker page as well as feeding the array of patients
   router.get("/data/caretakerInfo", (req,res) => {
-    // console.log("CAREGIVER ID:", req.session.caregiver_id)
-    console.log("HELLO")
-    
-
-      knex('patients').select('name').where({caregiver_id: req.session.caregiver_id})
+    knex('patients').select('name').where({caregiver_id: req.session.caregiver_id})
     .then(rows => {
-      rows[0].forEach(function (name){
+      
+      const array = []
+
+      rows.forEach(function (name){
+        let obj = {}
+      
+        obj.name = name.name
+
+        array.push(obj)
+       
+        
 
 
       })
-    // })
-    // knex('patients').select('id').where({caregiver_id: req.session.caregiver_id})
-    // .then(rows => {
-    //   rows[0].forEach(function (id)) {
 
-    //   }
-    // })
+   
+      res.json({array: array})
+   
 
     
     //respond with the name and array of patients

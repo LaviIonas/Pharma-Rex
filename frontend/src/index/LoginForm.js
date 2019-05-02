@@ -29,6 +29,7 @@ class LoginForm extends Component {
     .post("/login", loginData, {withCredentials: true})
     .then((res) => {
       console.log(res);
+      this.props.whenSubmit();
       axios
       .get("/login/response", {withCredentials: true})
       .then((res) => {
@@ -41,7 +42,7 @@ class LoginForm extends Component {
       })
     })
 
-    this.props.whenSubmit();
+    
   }
 
   render() {

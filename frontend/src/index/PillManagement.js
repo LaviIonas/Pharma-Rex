@@ -40,10 +40,16 @@ class PillManagment extends Component {
         drugArray: [...this.state.drugArray, drug]
         })
       })
+      // console.log(this.state.drugArray);
 
     })
   }
 
+    // renderPills = () => {
+    //   let pillList = [];
+      
+    //   return pillList;
+    // }
   render () {
     return (
       <div>
@@ -52,16 +58,15 @@ class PillManagment extends Component {
           <DrugPopup closePopup={this.togglePopup} useData = {this.useData}/>
           : null
         }
-        {
-          this.state.drugArray.map(drug => {
-            return
-              <Pills name={drug.name}
-                     dose={drug.dose}
-                     total={drug.total}
-                     interval={drug.interval}
-                     time={drug.time} />
-          })
-        }
+        {this.state.drugArray.map(drug => {
+          return(
+            <Pills name={drug.name}
+              dose={drug.dose}
+              total={drug.total}
+              interval={drug.interval}
+              time={drug.time} />
+            );
+          })}
 
       </div>
     );
