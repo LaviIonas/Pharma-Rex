@@ -36,13 +36,18 @@ class LoginPopup extends Component {
      axios
     .post("/login", loginData, {withCredentials: true})
     .then((res) => {
-      console.log(res);
       this.setState({
         loggedIn: res.data.login,
         loginError: res.data.error
       })
       if(this.state.loggedIn)  {
-        this.props.redirect();
+        if(res.data.red){
+          this.props.redirectP();
+        } else if (!res.data.red) {
+          this.props.redirectC();
+        } else {
+          console.log("Error");
+        }
       } else if (this.state.loginError) {
         this.setState({
           username: "",

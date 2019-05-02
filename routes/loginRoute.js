@@ -7,6 +7,7 @@ module.exports = (knex) => {
 
   let login = false;
   let error = false;
+  let patient = true;
 
   router.post("/", (req, res) => {
 
@@ -30,15 +31,23 @@ module.exports = (knex) => {
           } else {
             login = true;
             error = false;
+            patient = false;
             console.log("success", login);
+
             res.json({login: login, error: error});
             req.session.caregiver_id = rows[0].id
           console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
+
 
           res.status(200).end()
           }
         })
       } else {
+        login = true;
+        error = false;
+        patient = true;
+        console.log("success", login);
+        res.json({login: login, error: error, red: patient});
         req.session.patient_id = rows[0].id
         console.log("PATIENT_ID LOGGED IN ------>", req.session.patient_id )
         res.status(200).end()
