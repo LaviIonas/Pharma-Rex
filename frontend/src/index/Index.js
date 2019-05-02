@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './Index.css';
+import dino from "../dino.gif";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCube, faUserCheck, faListUl, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -18,7 +19,6 @@ import ProfileInfo from './ProfileInfo';
 
 import CaretakerInfo from './CaretakerInfo';
 
-
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 import axios from 'axios';
@@ -28,7 +28,6 @@ axios.defaults.baseURL = 'http://localhost:3001';
 function ComponentManager() {
   return (
   <div>
-  <h2 className="navbar">Navbar will go here</h2>
     <Router>
       <div>
         <Route exact path="/" component={Home}/>
@@ -48,7 +47,7 @@ function ComponentManager() {
 //Sends test text using twillo
 const sendText = () => {
   axios
-    .get("/test")
+    .get("/test----")
     .then((res) => {
       console.log("sent");
     })
@@ -100,23 +99,12 @@ class Home extends Component {
     this.setState ({
       redP: true
     })
-    console.log("hit hit", this.state.redP);
-
   }
 
   redirectCaregiver = () => {
     this.setState ({
       redC: true
     })
-  }
-
-  //Sends test text using twillo
-  sendText = () => {
-    axios
-      .get("/test")
-      .then((res) => {
-        console.log("sent");
-      })
   }
 
   componentDidMount() {
@@ -131,6 +119,11 @@ class Home extends Component {
     return (
       <div>
         <PreSideBar />
+        <div className="dino-background"></div>
+        <img src={dino} className="dino" alt="running..." />
+        <div className="dino-ground"></div>
+
+        <p className="navbar">Navbar will go here</p>
         <div>
           <h2 className="home-page">Pharma Rex</h2>
           <h2 className="secondary-line">The best way to track your medications. </h2>
@@ -197,8 +190,7 @@ class Home extends Component {
             : null
           }
 
-      </div>
-
+          </div>
       </div>
 
     );
@@ -206,13 +198,6 @@ class Home extends Component {
 };
 
 class Profile extends Component {
-
-  constructor () {
-    super ();
-    this.state = {
-
-    }
-  }
 
   render() {
     return (
