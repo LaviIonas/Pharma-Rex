@@ -37,7 +37,8 @@ module.exports = (knex) => {
   //Empty Route sending an ARRAY of objects of drugs
   //This route is responcible for filling the state array of existing added drugs
   router.get("/data/fill-array", (req,res) => {
-    console.log("Fill ARRAY SEE on click", req.session.patient_id )
+    
+    
 
     knex.table('prescriptions').innerJoin('medications', 'prescriptions.medication_id', '=', 'medications.id').where({patient_id: req.session.patient_id})
     // knex('prescriptions').select('name').where({ id: req.session.patient_id})

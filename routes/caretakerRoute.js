@@ -10,6 +10,7 @@ module.exports = (knex) => {
   //Caretaker page as well as feeding the array of patients
   router.get("/data/caretakerInfo", (req,res) => {
 
+    
     knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id').innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id').where({caregiver_id: req.session.caregiver_id})
     .then(rows => {
       const array = []
@@ -29,6 +30,7 @@ module.exports = (knex) => {
         array.push(patientObj)
 
     })
+    
     res.json({array: array})
 
     

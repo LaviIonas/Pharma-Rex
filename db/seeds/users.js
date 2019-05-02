@@ -125,7 +125,7 @@ exports.seed = function(knex, Promise) {
       }),
       knex('prescriptions').insert({
         id: 2,
-        patient_id: 2,
+        patient_id: 4,
         medication_id: 3,
         rx_number: '1876-54329',
         dosage: '2 g',
