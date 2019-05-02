@@ -45,11 +45,13 @@ class PillManagment extends Component {
       // console.log(this.state.drugArray);
 
     // })
+  })
   }
+
 
     // renderPills = () => {
     //   let pillList = [];
-      
+
     //   return pillList;
     // }
   render () {

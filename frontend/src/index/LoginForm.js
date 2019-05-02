@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-
-
+import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:3001'
 
 class LoginForm extends Component {
 
@@ -49,7 +49,7 @@ class LoginForm extends Component {
       })
     })
 
-    
+
   }
 
   render() {

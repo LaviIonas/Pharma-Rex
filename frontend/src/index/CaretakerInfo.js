@@ -31,7 +31,7 @@ class CaretakerInfo extends Component {
 
     })
   }
-  
+
   render () {
     console.log("Running Caretaker info");
     return (
@@ -39,11 +39,11 @@ class CaretakerInfo extends Component {
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p> Name: {this.state.name} </p>
         {
-        this.state.patientArray.map(patient => <Patients name={patient.name} />)
+        this.state.patientArray.map(patient => <Patient name={patient.name} />)
         }
-        
 
-        
+
+
       </div>
     );
   }
