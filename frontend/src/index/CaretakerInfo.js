@@ -10,7 +10,7 @@ class CaretakerInfo extends Component {
     super();
     this.state = {
       name: "Caregiver",
-      patientArray: [{name: "Amelia"}, {name: "Catherine"}, {name: "Johnathan"}]
+      patientArray: []
     }
   }
 
@@ -39,7 +39,15 @@ class CaretakerInfo extends Component {
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p> Name: {this.state.name} </p>
         {
-        this.state.patientArray.map(patient => <Patient name={patient.name} />)
+        this.state.patientArray.map(patient => <Patient name={patient.name}
+                                                        drug={patient.drug}
+                                                        dose={patient.dose}
+                                                        pillsR={patient.pillsRemaining}
+                                                        time={patient.time}
+                                                        doctor={patient.doctorName}
+                                                        pharmacyN={patient.pharmacyNumber}
+                                                        rx={patient.rxNumber}
+                                                        />)
         }
 
 
@@ -57,6 +65,13 @@ class Patient extends Component {
         //-----------//
 
         <p>{this.props.name}</p>
+        <p>{this.props.drug}</p>
+        <p>{this.props.dose}</p>
+        <p>{this.props.pillsR}</p>
+        <p>{this.props.time}</p>
+        <p>{this.props.doctor}</p>
+        <p>{this.props.pharmacyN}</p>
+        <p>{this.props.rx}</p>
 
       </div>
       );
