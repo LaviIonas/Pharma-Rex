@@ -8,7 +8,7 @@ class LoginForm extends Component {
     username: "",
     password: "",
     loggedIn: false,
-    loginError: true
+    loginError: false
   }
 
   handleUsername = (event) => {
