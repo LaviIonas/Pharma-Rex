@@ -11,7 +11,8 @@ class LoginPopup extends Component {
     super();
     this.state = {
       show: true,
-      loggedIn: true,
+      loggedIn: false,
+      loginError: false,
       username: "",
       password: ""
     }
@@ -32,69 +33,58 @@ class LoginPopup extends Component {
       password: this.state.password
     }
 
-    axios
+     axios
     .post("/login", loginData, {withCredentials: true})
     .then((res) => {
       console.log(res);
-      axios
-      .get("/login/response", {withCredentials: true})
-      .then((res) => {
-        console.log(res.data);
-        if(res.data.loggedIn)  {
-          alert ("Logged In");
-        } else {
-          alert ("Error occured when logging in");
-        }
+      this.setState({
+        loggedIn: res.data.login,
+        loginError: res.data.error
       })
-    })
+      if(this.state.loggedIn)  {
+        this.props.redirect();
+      } else if (this.state.loginError) {
+        this.setState({
+          username: "",
+          password: ""
+        })
 
-    this.props.redirect();
+        console.log("login: ", this.state.loggedIn);
+        console.log("error: ", this.state.loginError);
+
+      }
+    });
   }
 
-
-//   render () {
-//     return (
-//       <div className='popup'>
-//         <div className='popup_inner'>
-//           <div>
-//             <div>
-//               <div >
-//                 <h2 className="home-page">Login To Your Profile</h2>
-//                 <button onClick={this.props.closePopup}>X</button>
-//
-//                 <LoginForm whenSubmit={this.props.redirect}/>
-//
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-
 render () {
-    return (
-      <Modal show={this.props.showLogin} onHide={this.props.closePopup}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login to your account</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <LoginForm
-            whenSubmit={this.props.redirect}
-            username={this.state.username}
-            password={this.state.password}
-            handleUsername={this.handleUsername}
-            handlePassword={this.handlePassword}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.closePopup}>Close</Button>
-          <Button variant="primary" onClick={this.handleSubmit}>Submit</Button>
-        </Modal.Footer>
-      </Modal>
-)}
+  return (
+    <div>
+    <Modal show={this.props.showLogin} onHide={this.props.closePopup}>
+      <Modal.Header closeButton>
+        <Modal.Title>Login to your account</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        { this.state.loginError ?
+          <p style={{color: "red"}}>Username or Password is Incorrect</p>
+          : null
+        }
+
+        <LoginForm
+          username={this.state.username}
+          password={this.state.password}
+          handleUsername={this.handleUsername}
+          handlePassword={this.handlePassword}
+          handleSubmit={this.handleSubmit}
+        />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={this.props.closePopup}>Close</Button>
+        <Button variant="primary" onClick={this.handleSubmit}>Submit</Button>
+      </Modal.Footer>
+    </Modal>
+
+    </div>
+  )}
 }
 
 export default LoginPopup;

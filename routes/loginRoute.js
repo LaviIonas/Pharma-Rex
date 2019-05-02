@@ -7,6 +7,7 @@ module.exports = (knex) => {
 
   let login = false;
   let error = false;
+
   router.post("/", (req, res) => {
 
     knex.select('id').from('patients').where({ email: req.body.username, password: req.body.password })
@@ -21,15 +22,21 @@ module.exports = (knex) => {
             res.status(500).end()
             return
           } else if (rows[0] === undefined) {
-            console.log("Noting was found");
-            error = true;
-            res.status(404).end()
-          }
-          login = true;
-          req.session.user_id = rows[0].id
-          console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
 
-          res.status(200).end()
+            error = true;
+            login = false;
+            res.json({login: login, error: error});
+            res.status(404).end()
+          } else {
+            login = true;
+            error = false;
+            console.log("success", login);
+            res.json({login: login, error: error});
+            req.session.user_id = rows[0].id
+            console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
+
+            res.status(200).end();
+          }
         })
       } else {
         req.session.patient_id = rows[0].id
@@ -38,16 +45,6 @@ module.exports = (knex) => {
 
       }
     });
-
-  });
-
-
-  router.get("/response", (req, res) => {
-    if(login){
-      res.json({loggedIn: true, loginError: false});
-    } else if (error) {
-      res.json({loggedIn: false, loginError: true})
-    }
   });
 
   return router;
