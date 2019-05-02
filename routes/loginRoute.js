@@ -32,10 +32,10 @@ module.exports = (knex) => {
             error = false;
             console.log("success", login);
             res.json({login: login, error: error});
-            req.session.user_id = rows[0].id
-            console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
+            req.session.caregiver_id = rows[0].id
+          console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
 
-            res.status(200).end();
+          res.status(200).end()
           }
         })
       } else {
