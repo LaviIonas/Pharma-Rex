@@ -154,8 +154,8 @@ class Home extends Component {
 
           <div className="spacer5" />
           <div className="vertical-buttonpanel">
-            <Link className="buttontransparent home" to="/Login">Login</Link>
-            <Link className="buttonprimary" to="/Register">Register</Link>
+            <button className="buttontransparent home" onClick={this.toggleLogin} >Login</button>
+            <button className="buttonprimary" onClick={this.toggleRegister} >Register</button>
           </div>
 
 
@@ -168,10 +168,6 @@ class Home extends Component {
           </div>
 
           <button onClick={sendText}>Send Text</button>
-
-
-          <button onClick={this.toggleLogin}>Login</button>
-          <button onClick={this.toggleRegister}>Register</button>
 
           {this.state.showRegister ?
             <RegisterPopup closePopup={this.toggleRegister} redirectPatient={this.redirectPatient} redirectCaregiver={this.redirectCaregiver}/>
