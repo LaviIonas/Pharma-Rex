@@ -386,6 +386,7 @@ label {
 
 .Caregiverpatientliststyle {
   font-family: "Nunito", sans-serif;
+  font-weight: bold;
   background: white;
   max-width: 720px;
   margin: auto;
