@@ -36,27 +36,20 @@ module.exports = (knex) => {
   })
 
   //   knex('patients').select('name').where({caregiver_id: req.session.caregiver_id})
-  //   .then(rows => {
-      
+  //   .then(rows => {      
   //     const array = []
 
   //     rows.forEach(function (name){
   //       let obj = {}
-      
   //       obj.name = name.name
-
   //       array.push(obj)
        
-        
   //       // select * from prescriptions inner join patients on prescriptions.patient_id = patients.id inner join medications on medications.id = prescriptions.medication_id;
 
   //     })
 
-   
   //     res.json({array: array})
-   
-
-    
+       
   //   //respond with the name and array of patients
   //   //Example: {name: "Bob", array: [{name: "Joe"}, {name: "Candy"}]}
 
