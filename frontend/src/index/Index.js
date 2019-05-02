@@ -46,11 +46,12 @@ function ComponentManager() {
 };
 //Sends test text using twillo
 const sendText = () => {
-  axios
-    .get("/test----")
-    .then((res) => {
-      console.log("sent");
-    })
+  console.log("Do nothing");
+  // axios
+  //   .get("/test----")
+  //   .then((res) => {
+  //     console.log("sent");
+  //   })
 }
 
 // setting up the timeralert to go to the backend
