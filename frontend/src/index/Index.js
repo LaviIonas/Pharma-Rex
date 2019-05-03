@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './Index.css';
 import dino from "../dino.gif";
-
+import rainbow from "./rainbowpills.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCube, faUserCheck, faListUl, faSearch } from '@fortawesome/free-solid-svg-icons'
 
@@ -21,6 +21,7 @@ import CaretakerInfo from './CaretakerInfo';
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
+import Navbar from './Navbar';
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001';
 
@@ -124,11 +125,10 @@ class Home extends Component {
         <img src={dino} className="dino" alt="running..." />
         <div className="dino-ground"></div>
 
-        <p className="navbar">Navbar will go here</p>
+        <Navbar />
         <div>
-          <h2 className="home-page">Pharma Rex</h2>
-          <h2 className="secondary-line">The best way to track your medications. </h2>
 
+          <h2 className="secondary-line">The best way to track your medications. </h2>
           <ul className="pitch">
           <li className="pitch__bullet">
             <FontAwesomeIcon icon={faUserCheck} className="pitch__icon" />
@@ -235,12 +235,13 @@ function About () {
     <div>
       <PostSideBar />
       <div>
-        <h2 className="home-page">About Pharma Rex</h2>
+      <Navbar />
+        <h2 className="home-page">About</h2>
           <div className="about-text">
-            <p>Here is where some text goes about the actual product</p>
-              <button className="animate-button">Remember to take
-                <span>your pills!.</span>
-              </button>
+          <div className="pills-about-image"></div>
+          <img src={rainbow} className="rainbow" />
+            <p></p>
+              
               <h2>What is Pharma Rex?</h2>
       <p>Pharma Rex is an easy to use tool that helps patients and their caregivers manage their medications. It's free to use and fun to interact with. Never miss a pill again!
       </p>
