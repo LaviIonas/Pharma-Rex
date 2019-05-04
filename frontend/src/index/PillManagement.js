@@ -12,7 +12,7 @@ class PillManagment extends Component {
     super();
     this.state = {
       popup: false,
-      drugArray: [{name: "Tylenol", dose: "2 a day", total: "46", interval: "Every 16 hours", time: "8 am"},{name: "Ibuprofen", dose: "4 a day", total: "50", interval: "Every 8 hours", time: "1 pm"}]
+      drugArray: []
     }
   }
   //Toggle the popup based on a boolean 'popup'

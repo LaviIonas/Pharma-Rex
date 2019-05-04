@@ -51,7 +51,9 @@ module.exports = (knex) => {
       })
 
     } else if (req.body.status === 'Caregiver') {
+
       knex('caregivers').insert({ email: req.body.email, password: req.body.password}).returning('id')
+
       .asCallback(function (err, rows) {
         console.log ("ROWS", rows)
         if (err) {

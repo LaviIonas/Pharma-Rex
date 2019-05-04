@@ -9,7 +9,6 @@ module.exports = (knex) => {
   //Empty Route that takes care of feeding information to the
   //Caretaker page as well as feeding the array of patients
   router.get("/data/caretakerInfo", (req,res) => {
-
       knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id').innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id').where({caregiver_id: req.session.caregiver_id})
       .then(rows => {
         const array = []
@@ -32,12 +31,15 @@ module.exports = (knex) => {
       console.log("CARETAKER", array)
       res.json({array: array})
 
-
-
     })
 
 
+  })
 
+  //update a new patient to a caretaker
+  router.post("/data/new-patient", (req,res) => {
+    //after res.json an object with the new array with the new patient
+    //Like we did in LoginPopup
   })
 
   //   knex('patients').select('name').where({caregiver_id: req.session.caregiver_id})
@@ -61,7 +63,6 @@ module.exports = (knex) => {
   // })
 
 // })
-
 
 return router;
 

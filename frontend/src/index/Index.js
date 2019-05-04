@@ -238,7 +238,10 @@ class Caretaker extends Component {
   render() {
     return (
       <div>
-        <CaretakerInfo />
+      <PostSideBar />
+        <div>
+          <CaretakerInfo />
+        </div>
       </div>
 
     );
