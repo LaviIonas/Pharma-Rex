@@ -4,8 +4,6 @@ import axios from 'axios';
 import profilePic from '../logo.svg';
 axios.defaults.baseURL = 'http://localhost:3001'
 
-
-
 class ProfileInfo extends Component {
   constructor () {
     super();

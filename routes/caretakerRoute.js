@@ -24,39 +24,45 @@ module.exports = (knex) => {
         patientObj.doctorName = patientInfo.doctor_name
         patientObj.pharmacyNumber = patientInfo.pharmacy_number
         patientObj.rxNumber = patientInfo.rx_number
-        
+
 
         array.push(patientObj)
 
     })
     res.json({array: array})
 
-    
+
 
   })
 
+  //update a new patient to a caretaker
+  router.post("/data/new-patient", (req,res) => {
+    //after res.json an object with the new array with the new patient
+    //Like we did in LoginPopup
+  })
+
   //   knex('patients').select('name').where({caregiver_id: req.session.caregiver_id})
-  //   .then(rows => {      
+  //   .then(rows => {
   //     const array = []
 
   //     rows.forEach(function (name){
   //       let obj = {}
   //       obj.name = name.name
   //       array.push(obj)
-       
+
   //       // select * from prescriptions inner join patients on prescriptions.patient_id = patients.id inner join medications on medications.id = prescriptions.medication_id;
 
   //     })
 
   //     res.json({array: array})
-       
+
   //   //respond with the name and array of patients
   //   //Example: {name: "Bob", array: [{name: "Joe"}, {name: "Candy"}]}
 
   // })
-  
+
 // })
-  
+
 })
 
 return router;
