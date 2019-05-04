@@ -295,16 +295,36 @@ function Contact () {
   );
 }
 
-function Logout () {
-    return (
-    <div>
-      <PostSideBar />
-      <div>
-        <h2 className="home-page">Register A New Profile</h2>
-      </div>
-    </div>
+class Logout extends Component {
+  constructor () {
+    super();
+    this.state = {
+      redirect: false
+    }
+  }
 
-  );
+  componentDidMount () {
+    axios
+    .get("/login/logout", {withCredentials: true})
+    .then((res) => {
+      this.setState({
+        redirect: true
+      })
+
+      //This request doesnt work
+      console.log(this.state.redirect);
+    });
+  }
+  render () {
+    return (
+      <div>
+      {this.state.redirect ?
+        <Redirect to = {"/"} />
+        :null
+      }
+      </div>
+      );
+  }
 }
 
 export default ComponentManager;
