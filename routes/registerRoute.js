@@ -35,11 +35,13 @@ module.exports = (knex) => {
 
   router.post("/", (req, res) => {
     console.log("REQUBODY", req.body)
-  
+
     if (req.body.status === 'Patient') {
       knex('patients').insert({ email: req.body.username, password: req.body.password }).returning('id')
       .asCallback(function (err, rows) {
         if (err) {
+          console.log(err);
+
           res.status(500).end()
           return
         }
@@ -47,16 +49,17 @@ module.exports = (knex) => {
         console.log("REGISTER PATIENT_ID", req.session.patient_id)
         res.status(200).end();
       })
-   
+
     } else if (req.body.status === 'Caregiver') {
-      knex('caregivers').insert({ email: req.body.username, password: req.body.password }).returning('id')
+      knex('caregivers').insert({ email: req.body.username, password: req.body.password}).returning('id')
       .asCallback(function (err, rows) {
         console.log ("ROWS", rows)
         if (err) {
+          console.log(err);
           res.status(500).end()
           return
         }
-        
+
         req.session.caregiver_id = rows[0]
         console.log("ROW[0]", rows[0])
         console.log("REGISTER CAREGIVER_ID", req.session.caregiver_id)
