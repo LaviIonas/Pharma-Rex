@@ -63,7 +63,7 @@ class RegisterPopup extends Component {
     this.setState({email: event.target.value});
   }
   handleName = (event) => {
-    this.setState({email: event.target.value});
+    this.setState({name: event.target.value});
   }
 
 
