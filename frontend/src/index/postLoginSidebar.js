@@ -9,9 +9,6 @@ class Slider extends Component {
         <a className="menu-item" href="/profile">
           Profile
         </a>
-        <a className="menu-item" href="/settings">
-          Settings
-        </a>
         <a className="menu-item" href="/contact">
           Contact
         </a>

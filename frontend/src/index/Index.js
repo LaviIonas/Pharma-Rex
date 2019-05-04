@@ -40,8 +40,6 @@ function ComponentManager() {
         <Route path="/caretaker_info" component={CaretakerInfo}/>
         <Route path="/about" component={About}/>
         <Route path="/contact" component={Contact}/>
-
-        <Route path="/settings" component={Settings}/>
         <Route path="/logout" component={Logout}/>
       </div>
     </Router>
@@ -295,62 +293,6 @@ function Contact () {
     </div>
 
   );
-}
-
-class Settings extends Component {
-
-  constructor () {
-    super();
-    this.state = {
-      name: ""
-    }
-  }
-
-
-  handleName = (event) => {
-    this.setState({name: event.target.value});
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    const settingsData = {
-      name: this.state.name,
-    }
-
-    axios
-    .post("/settings/data/name-change", settingsData, {withCredentials: true})
-    .then((res) => {
-      console.log(res);
-    })
-    .then((res) => {
-      this.setState({
-        name: ""
-      })
-    })
-
-  }
-  render() {
-    return (
-    <div>
-      <PostSideBar />
-      <div>
-        <h2 className="home-page">Settings</h2>
-        <form onSubmit={this.handleSubmit}>
-              <label>
-                Name :
-                <input type="text"
-                       placeholder= "name"
-                       value={this.state.name}
-                       onChange={this.handleName} />
-              </label>
-              <input type="submit" value="Submit" />
-            </form>
-      </div>
-    </div>
-
-    );
-  }
 }
 
 function Logout () {
