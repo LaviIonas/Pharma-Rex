@@ -24,12 +24,6 @@ body {
   background-color: #45796b;
 }
 
-.profile-pic {
-  width: 150px;
-  height: 150px;
-  display: inline;
-}
-
 /*------*/
 
 .popup {
@@ -272,8 +266,6 @@ label {
   font-family: "Nunito", sans-serif;
 }
 
-
-
 /* Contact page */
 
 .contact-text {
@@ -283,16 +275,17 @@ label {
 /* Pill Management */
 
 .addPill {
-  background-color: mediumseagreen;
+  background-color: #b8e7cd;
   border: none;
   color: black;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 4px 2px;
+  margin: 20px 90px;
   cursor: pointer;
   border-radius: 16px;
+  font-family: "Nunito", sans-serif;
 }
 
 /*
@@ -343,11 +336,41 @@ label {
 .timePillManagement {
   padding-left: 10px;
 }
+/* Patient profile pic and Caregiver profile pic styling goes here */
+.patient-profile-pic {
+  width: 200px;
+  height: 168px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
 
+.caregiver-profile-pic  {
+  width: 200px;
+  height: 168px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  display: inline;
+}
 /*Profile Styles */
+
+.wrapper {
+display: flex;
+}
+
 .profileStyle {
-  padding-left: 25px;
-  font-family: "Nunito", sans-serif;
+padding-top: 35px;
+padding-left: 100px;
+width: 200px;
+font-family: "Nunito", sans-serif;
+}
+
+.profileText {
+flex: 1;
+padding-top: 48px;
+padding-left: 170px;
+font-family: "Nunito", sans-serif;
 }
 
 /*Caregiver Styles */

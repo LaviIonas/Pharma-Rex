@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Index.css';
 import axios from 'axios';
-import profilePic from '../ron-swan.png';
+import caregiverphoto from "../CaregiverProfilePhoto.png";
 axios.defaults.baseURL = 'http://localhost:3001'
 
 
@@ -36,7 +36,7 @@ class CaretakerInfo extends Component {
     console.log("Running Caretaker info");
     return (
       <div className="CaretakerStyle">
-        <img src={profilePic} className = "profile-pic" alt="Logo" />
+        <img src={caregiverphoto} className = "caregiver-profile-pic" alt="Caregiver" />
         <p> Name: {this.state.name} </p>
         {
         this.state.patientArray.map(patient => <Patient name={patient.name}
