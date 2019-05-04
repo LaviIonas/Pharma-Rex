@@ -6,17 +6,8 @@ class Slider extends Component {
   render () {
     return (
       <Menu>
-        <a className="menu-item-log" href="/login">
-          Login
-        </a>
-        <a className="menu-item-reg" href="/register">
-          Register
-        </a>
         <a className="menu-item" href="/">
           Home
-        </a>
-        <a className="menu-item" href="/profile">
-          Profile
         </a>
         <a className="menu-item" href="/about">
           About
