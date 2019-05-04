@@ -13,13 +13,13 @@ class LoginPopup extends Component {
       show: true,
       loggedIn: false,
       loginError: false,
-      username: "",
+      email: "",
       password: ""
     }
   }
 
-  handleUsername = (event) => {
-    this.setState({username: event.target.value});
+  handleEmail = (event) => {
+    this.setState({email: event.target.value});
   }
   handlePassword = (event) => {
     this.setState({password: event.target.value});
@@ -29,7 +29,7 @@ class LoginPopup extends Component {
     event.preventDefault();
 
     const loginData = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }
 
@@ -45,7 +45,7 @@ class LoginPopup extends Component {
         this.props.redirect();
       } else if (this.state.loginError) {
         this.setState({
-          username: "",
+          email: "",
           password: ""
         })
 
@@ -65,14 +65,14 @@ render () {
       </Modal.Header>
       <Modal.Body>
         { this.state.loginError ?
-          <p style={{color: "red"}}>Username or Password is Incorrect</p>
+          <p style={{color: "red"}}>Email or Password is Incorrect</p>
           : null
         }
 
         <LoginForm
-          username={this.state.username}
+          email={this.state.email}
           password={this.state.password}
-          handleUsername={this.handleUsername}
+          handleEmail={this.handleEmail}
           handlePassword={this.handlePassword}
           handleSubmit={this.handleSubmit}
         />

@@ -16,12 +16,13 @@ class RegisterPopup extends Component {
       patient: false,
       caregiver: false,
       show: true,
-      username: "",
+      email: "",
       password: "",
+      name: "",
       phone: "",
       careId: "",
-      color: "",
-      age: "",
+      doctor: "",
+      pharmacy: ""
     }
   }
 
@@ -51,24 +52,33 @@ class RegisterPopup extends Component {
   handleCareId = (event) => {
     this.setState({careId: event.target.value});
   }
-  handleColor = (event) => {
-    this.setState({color: event.target.value});
+
+  handleDoctor = (event) => {
+    this.setState({doctor: event.target.value});
+  }
+  handlePharmacy = (event) => {
+    this.setState({pharmacy: event.target.value});
+  }
+  handleEmail = (event) => {
+    this.setState({email: event.target.value});
+  }
+  handleName = (event) => {
+    this.setState({email: event.target.value});
   }
 
-  handleAge = (event) => {
-    this.setState({age: event.target.value});
-  }
+
 //handle patientsubmit
   handlePatientSubmit = (event) => {
     event.preventDefault();
 
     const registerData = {
       status: "Patient",
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password,
+      name: this.state.name,
       phone: this.state.phone,
-      age: this.state.age,
-      color: this.state.color
+      doctor: this.state.doctor,
+      pharmacy: this.state.pharmacy
     }
 
     axios
@@ -87,11 +97,11 @@ class RegisterPopup extends Component {
 
     const registerData = {
       status: "Caregiver",
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password,
+      name: this.state.name,
       phone: this.state.phone,
       careId: this.state.careId,
-      color: this.state.color
     }
 
     axios
@@ -122,31 +132,33 @@ class RegisterPopup extends Component {
 
             {this.state.patient ?
               <PatientRegisterForm whenSubmit={this.props.redirectPatient}
-              username={this.state.username}
+              email={this.state.email}
               password={this.state.password}
+              name={this.state.name}
               phone={this.state.phone}
-              age={this.state.age}
-              color={this.state.color}
-              handleUsername={this.handleUsername}
+              doctor={this.state.doctor}
+              pharmacy={this.state.pharmacy}
+              handleEmail={this.handleEmail}
               handlePassword={this.handlePassword}
+              handleName={this.handleName}
               handlePhone={this.handlePhone}
-              handleAge={this.handleAge}
-              handleColor={this.handleColor}
+              handleDoctor={this.handleDoctor}
+              handlePharmacy={this.handlePharmacy}
               />
               : null
             }
             {this.state.caregiver ?
               <CaregiverRegisterForm whenSubmit={this.props.redirectCaregiver}
-              username={this.state.username}
+              email={this.state.email}
               password={this.state.password}
+              name={this.state.name}
               phone={this.state.phone}
               careId={this.state.careId}
-              color={this.state.color}
-              handleUsername={this.handleUsername}
+              handleEmail={this.handleEmail}
               handlePassword={this.handlePassword}
+              handleName={this.handleName}
               handlePhone={this.handlePhone}
               handleCareId={this.handleCareId}
-              handleColor={this.handleColor}
               />
               : null
             }

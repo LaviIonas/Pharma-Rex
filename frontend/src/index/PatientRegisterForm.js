@@ -9,46 +9,53 @@ class PatientRegisterForm extends Component {
     return (
       <div>
         <form>
-              <label>
-                Username :
-                <input type="text"
-                       placeholder= "username"
-                       value={this.props.username}
-                       onChange={this.props.handleUsername} />
-              </label>
+          <label>
+                Email :
+            <input type="text"
+              placeholder= "email"
+              value={this.props.email}
+              onChange={this.props.handleEmail} />
+          </label>
 
-              <label>
+          <label>
                 Password :
-                <input type="text"
-                       placeholder= "password"
-                       value={this.props.password}
-                       onChange={this.props.handlePassword} />
-              </label>
+            <input type="text"
+              placeholder= "password"
+              value={this.props.password}
+              onChange={this.props.handlePassword} />
+          </label>
 
-              <label>
+          <label>
+                Name :
+            <input type="text"
+              placeholder= "name"
+              value={this.props.name}
+              onChange={this.props.handleName} />
+          </label>
+          <label>
                 Phone :
-                <input type="text"
-                       placeholder= "phone #"
-                       value={this.props.phone}
-                       onChange={this.props.handlePhone} />
-              </label>
+            <input type="text"
+              placeholder= "phone #"
+              value={this.props.phone}
+              onChange={this.props.handlePhone} />
+          </label>
 
-              <label>
-                Age :
-                <input type="text"
-                       placeholder= "age"
-                       value={this.props.age}
-                       onChange={this.props.handleAge} />
-              </label>
+          <label>
+                Doctor :
+            <input type="text"
+              placeholder= "doctor"
+              value={this.props.doctor}
+              onChange={this.props.handleDoctor} />
+          </label>
 
-              <label>
-                Color :
-                <input type="text"
-                       placeholder= "color"
-                       value={this.props.color}
-                       onChange={this.props.handleColor} />
-              </label>
-            </form>
+          <label>
+               Pharmacy :
+            <input type="text"
+              placeholder= "pharmacy"
+              value={this.props.pharmacy}
+              onChange={this.props.handlePharmacy} />
+          </label>
+        </form>
       </div>
     );
   }

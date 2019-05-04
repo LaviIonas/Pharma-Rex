@@ -4,25 +4,25 @@ axios.defaults.baseURL = 'http://localhost:3001'
 
 class LoginForm extends Component {
 
-  render() {
+  render () {
     return (
       <div>
         <form onSubmit={this.props.handleSubmit}>
-              <label>
-                Username :
-                <input type="text"
-                     placeholder= "username"
-                     value={this.props.username}
-                     onChange={this.props.handleUsername} />
-              </label>
-              <label>
+          <label>
+                Email :
+            <input type="text"
+              placeholder= "email"
+              value={this.props.email}
+              onChange={this.props.handleEmail} />
+          </label>
+          <label>
                 Password :
-                <input type="text"
-                       placeholder= "password"
-                       value={this.props.password}
-                       onChange={this.props.handlePassword} />
-              </label>
-            </form>
+            <input type="text"
+              placeholder= "password"
+              value={this.props.password}
+              onChange={this.props.handlePassword} />
+          </label>
+        </form>
       </div>
     );
   }
