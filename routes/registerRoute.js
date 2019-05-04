@@ -52,13 +52,7 @@ module.exports = (knex) => {
 
     } else if (req.body.status === 'Caregiver') {
 
-<<<<<<< HEAD
-      knex('caregivers').insert({ email: req.body.email, password: req.body.password}).returning('id')
-
-=======
-      
       knex('caregivers').insert({ email: req.body.email, password: req.body.password, name: req.body.name, phone_number: req.body.phone}).returning('id')
->>>>>>> feature/register
       .asCallback(function (err, rows) {
         console.log ("ROWS", rows)
         if (err) {
