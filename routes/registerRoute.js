@@ -37,7 +37,7 @@ module.exports = (knex) => {
     console.log("REQUBODY", req.body)
 
     if (req.body.status === 'Patient') {
-      knex('patients').insert({ email: req.body.username, password: req.body.password }).returning('id')
+      knex('patients').insert({ email: req.body.email, password: req.body.password }).returning('id')
       .asCallback(function (err, rows) {
         if (err) {
           console.log(err);
@@ -51,7 +51,7 @@ module.exports = (knex) => {
       })
 
     } else if (req.body.status === 'Caregiver') {
-      knex('caregivers').insert({ email: req.body.username, password: req.body.password}).returning('id')
+      knex('caregivers').insert({ email: req.body.email, password: req.body.password}).returning('id')
       .asCallback(function (err, rows) {
         console.log ("ROWS", rows)
         if (err) {
