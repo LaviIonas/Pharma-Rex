@@ -35,23 +35,29 @@ class CaretakerInfo extends Component {
   render () {
     console.log("Running Caretaker info");
     return (
-      <div className="CaretakerStyle">
-        <img src={caregiverphoto} className = "caregiver-profile-pic" alt="Caregiver" />
-        <p> Name: {this.state.name} </p>
-        {
-        this.state.patientArray.map(patient => <Patient name={patient.name}
-                                                        drug={patient.drug}
-                                                        dose={patient.dose}
-                                                        pillsR={patient.pillsRemaining}
-                                                        time={patient.time}
-                                                        doctor={patient.doctorName}
-                                                        pharmacyN={patient.pharmacyNumber}
-                                                        rx={patient.rxNumber}
-                                                        />)
-        }
-
-
-
+      <div>
+        <div className="wrapperCaretaker">
+          <div className="caretakerStyle">
+            <img src={caregiverphoto} className = "caregiver-profile-pic" alt="Caregiver" />
+          </div>
+          <div className="caretakerText">
+            <p> Name: {this.state.name} </p>
+            <p> Name: {this.state.name} </p>
+            <p> Name: {this.state.name} </p>
+            <p> Name: {this.state.name} </p>
+            {
+              this.state.patientArray.map(patient => <Patient name={patient.name}
+                drug={patient.drug}
+                dose={patient.dose}
+                pillsR={patient.pillsRemaining}
+                time={patient.time}
+                doctor={patient.doctorName}
+                pharmacyN={patient.pharmacyNumber}
+                rx={patient.rxNumber}
+              />)
+            }
+          </div>
+        </div>
       </div>
     );
   }

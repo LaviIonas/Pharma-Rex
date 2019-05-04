@@ -374,8 +374,22 @@ font-family: "Nunito", sans-serif;
 }
 
 /*Caregiver Styles */
-.CaretakerStyle {
-  padding-left: 25px;
+
+.wrapperCaretaker {
+display: flex;
+}
+
+.caretakerStyle {
+  padding-top: 35px;
+  padding-left: 100px;
+  width: 200px;
+  font-family: "Nunito", sans-serif;
+}
+
+.caretakerText {
+  flex: 1;
+  padding-top: 48px;
+  padding-left: 170px;
   font-family: "Nunito", sans-serif;
 }
 
