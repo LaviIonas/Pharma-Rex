@@ -9,29 +9,32 @@ module.exports = (knex) => {
   //Empty Route that takes care of feeding information to the
   //Caretaker page as well as feeding the array of patients
   router.get("/data/caretakerInfo", (req,res) => {
-console.log("Caregiver", req.session.caregiver_id);
 
-    knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id').innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id').where({caregiver_id: req.session.caregiver_id})
-    .then(rows => {
-      const array = []
-      rows.forEach(function (patientInfo){
-        let patientObj = {}
+      knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id').innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id').where({caregiver_id: req.session.caregiver_id})
+      .then(rows => {
+        const array = []
+        rows.forEach(function (patientInfo){
+          let patientObj = {}
 
-        patientObj.name = patientInfo.name
-        patientObj.drug = patientInfo.medication_name
-        patientObj.dose = patientInfo.dosage
-        patientObj.pillsRemaining = patientInfo.total_number_pills
-        patientObj.time = patientInfo.start_time
-        patientObj.doctorName = patientInfo.doctor_name
-        patientObj.pharmacyNumber = patientInfo.pharmacy_number
-        patientObj.rxNumber = patientInfo.rx_number
+          patientObj.name = patientInfo.name
+          patientObj.drug = patientInfo.medication_name
+          patientObj.dose = patientInfo.dosage
+          patientObj.pillsRemaining = patientInfo.total_number_pills
+          patientObj.time = patientInfo.start_time
+          patientObj.doctorName = patientInfo.doctor_name
+          patientObj.pharmacyNumber = patientInfo.pharmacy_number
+          patientObj.rxNumber = patientInfo.rx_number
 
 
-        array.push(patientObj)
+          array.push(patientObj)
+
+      })
+      console.log("CARETAKER", array)
+      res.json({array: array})
+
+
 
     })
-
-    res.json({array: array})
 
 
 
@@ -59,7 +62,6 @@ console.log("Caregiver", req.session.caregiver_id);
 
 // })
 
-})
 
 return router;
 

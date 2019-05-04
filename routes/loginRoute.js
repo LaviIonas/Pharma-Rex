@@ -33,7 +33,7 @@ module.exports = (knex) => {
             error = false;
             patient = false;
             console.log("success", login);
-            req.session.user_id = rows[0].id
+            req.session.caregiver_id = rows[0].id
             console.log("LOGGED IN AS CAREGIVER, REDIRED TO /Caregiver/ID", rows[0].id)
             res.json({login: login, error: error, red: patient});
           }
