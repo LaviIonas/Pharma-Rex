@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 import './Index.css';
 import dino from "../dino.gif";
-
+import rainbow from "./rainbowpills.jpg"
+import circle1 from "../1.png";
+import circle2 from "../2.png";
+import circle3 from "../3.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCube, faUserCheck, faListUl, faSearch } from '@fortawesome/free-solid-svg-icons'
 
@@ -21,6 +24,7 @@ import CaretakerInfo from './CaretakerInfo';
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
+import Navbar from './Navbar';
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001';
 
@@ -130,11 +134,10 @@ class Home extends Component {
         <img src={dino} className="dino" alt="running..." />
         <div className="dino-ground"></div>
 
-        <p className="navbar">Navbar will go here</p>
+        <Navbar />
         <div>
-          <h2 className="home-page">Pharma Rex</h2>
-          <h2 className="secondary-line">The best way to track your medications. </h2>
 
+          <h2 className="secondary-line">The best way to track your medications. </h2>
           <ul className="pitch">
           <li className="pitch__bullet">
             <FontAwesomeIcon icon={faUserCheck} className="pitch__icon" />
@@ -247,20 +250,25 @@ function About () {
     <div>
       <PostSideBar />
       <div>
-        <h2 className="home-page">About Pharma Rex</h2>
+      <Navbar />
+        <h2 className="home-page">About</h2>
           <div className="about-text">
-            <p>Here is where some text goes about the actual product</p>
-              <button className="animate-button">Remember to take
-                <span>your pills!.</span>
-              </button>
-              <h2>What is Pharma Rex?</h2>
-      <p>Pharma Rex is an easy to use tool that helps patients and their caregivers manage their medications. It's free to use and fun to interact with. Never miss a pill again!
+          <div className="pills-about-image"></div>
+          <img src={rainbow} className="rainbow" />
+            <p></p>
+
+              <h2 className="about-header">What is Pharma Rex?</h2>
+      <p>Pharma Rex is an easy to use tool that helps patients and their caregivers manage their medications.
       </p>
 
         <br />
-      <h2>Why did you make Pharma Rex?</h2>
-      <p>Pharma Rex started like so many other products: we wanted to solve a problem. In the United States, patients failing to take their prescribed medications cost the healthcare system
-      over $300 billion last year. The problem isn't only due to the cost of medications, either. In the UK, which offers subsized or free medications, 1 in 5 patients admits to forgetting to take their medication. We wanted to fix that.</p>
+
+      <div className="facts-circles"></div>
+      <img src={circle1} className="circle1" />
+      <img src={circle2} className="circle2" />
+      <img src={circle3} className="circle3" />
+      <br />
+      <p className="about-why">In starting Pharma Rex, we aim to reduce the burden that wasted medication places on the healthcare system. </p>
             </div>
           </div>
         </div>
@@ -272,8 +280,14 @@ function Contact () {
     return (
     <div>
       <PostSideBar />
+      <Navbar />
       <div>
         <h2 className="home-page">Get in touch with us</h2>
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <p className="contact-text">Want more information? Email us: info@pharmarex.com</p>
       </div>
     </div>
 
