@@ -79,7 +79,7 @@ module.exports = (knex) => {
     .then (rows => {
       const patientInfo = {
         name: rows[0].name,
-        careID: rows[0].caregiver_id,
+        careID: req.session.patient_id,
         doctor: rows[0].doctor_name,
         pharmacyNum: rows[0].pharmacy_number
       }
