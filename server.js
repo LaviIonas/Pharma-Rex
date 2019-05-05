@@ -76,11 +76,11 @@ function notificationPuller () {
     rows.forEach( function(row) {
 
       let patientObj = {}
-      obj.id = row.id
-      obj.name = row.name
-      obj.medication = row.medication_name
-      obj.phone = row.phone_number
-      obj.time = row.start_time
+      patientObj.id = row.id
+      patientObj.name = row.name
+      patientObj.medication = row.medication_name
+      patientObj.phone = row.phone_number
+      patientObj.time = row.start_time
 
       patientMessagesList.push(patientObj)
   })
@@ -94,7 +94,7 @@ function notificationPuller () {
     let timeDiff = sendTime.diff(currentTime, 'milliseconds')
     
     //If the date has already passed (diff is a negative number, don't setTimeout)
-    if (diff < 0) {
+    if (timeDiff < 0) {
       return
     } else  {
       //setTimeout calls the message function when timeDiff reaches out 0 and passes 4 parameters
