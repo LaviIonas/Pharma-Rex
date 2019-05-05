@@ -48,7 +48,6 @@ class CaretakerInfo extends Component {
   render () {
     console.log("Running Caretaker info");
     return (
-<<<<<<< HEAD
       <div className="CaretakerStyle">
         <img src={profilePic} className = "profile-pic" alt="Logo" />
         <p> Name: {this.state.name} </p>
