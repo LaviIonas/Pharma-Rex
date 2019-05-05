@@ -22,6 +22,7 @@
     "express": "^4.13.4",
     "knex": "^0.16.5",
     "knex-logger": "^0.1.0",
+    "moment": "^2.24.0",
     "morgan": "^1.7.0",
     "node-sass-middleware": "^0.11.0",
     "pg": "^6.4.2",

@@ -69,7 +69,7 @@ function notificationPuller () {
   .innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id')
   .select('prescriptions.id', 'name','start_time', 'medication_name', 'phone_number')
   .then(rows => {
-    
+
     //Array of objectc containing info to constuct message and time to send it
     const patientMessagesList = []
 
@@ -84,7 +84,7 @@ function notificationPuller () {
 
       patientMessagesList.push(patientObj)
   })
-  
+
   //Loop through patientMessagesList and subtract the current time from time to send and use the difference (in miliseconds)
   //to setTimeout. I use moment js to format the time and make it possible to subtract the dates.
   patientMessagesList.forEach(function (message) {
@@ -92,13 +92,16 @@ function notificationPuller () {
     let currentTime = moment()
     let sendTime = moment(message.time)
     let timeDiff = sendTime.diff(currentTime, 'milliseconds')
-    
+
     //If the date has already passed (diff is a negative number, don't setTimeout)
     if (timeDiff < 0) {
       return
     } else  {
       //setTimeout calls the message function when timeDiff reaches out 0 and passes 4 parameters
-      setTimeout(message, timeDiff, message.name, message.medication, message.phone, message.id)
+      // setTimeout(message, timeDiff, message.name, message.medication, message.phone, message.id)
+      setTimeout(function() {
+        message(message.name, message.medication, message.phone, message.id)
+      }, timeDiff);
     }
 
   })
@@ -115,7 +118,7 @@ app.post('/sms', (req, res) => {
   knex.table('patients').innerJoin('prescriptions', 'prescriptions.patient_id', '=', 'patients.id')
   .innerJoin('caregivers', 'caregivers.id', '=', 'patients.caregiver_id')
   .innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id')
-  .select('prescriptions.id', 'caregivers.phone_number', {patientNum: 'patients.phone_number'}, 'total_number_pills', 
+  .select('prescriptions.id', 'caregivers.phone_number', {patientNum: 'patients.phone_number'}, 'total_number_pills',
   'number_pills_to_take', 'start_time', 'interval', 'patients.name', 'medication_name', 'pharmacy_number',)
   .where({'prescriptions.id': req.body.Body})
 
@@ -131,7 +134,7 @@ app.post('/sms', (req, res) => {
 
     //Update the datebase by subtracting the amount of pills taken and adding the interval to the original
     let newPillTotal = rows[0].total_number_pills - rows[0].number_pills_to_take
-    
+
     let newStartTime = moment(rows[0].start_time).add(rows[0].interval, 'seconds');
 
     let time = moment()
@@ -146,7 +149,7 @@ app.post('/sms', (req, res) => {
     //to call their pharmacists and order more.
 
     if (newPillTotal < 10 && newPillTotal > 0) {
-      
+
       //Caregiver message
       client.messages
       .create({
@@ -154,7 +157,7 @@ app.post('/sms', (req, res) => {
       to request a refill. Pharmacy Number is: ${rows[0].pharmacy_number} `,
       from: '+16474902749',
       to: `${rows[0].phone_number}`
-      
+
     })
 
     //Message to patient
@@ -166,7 +169,7 @@ app.post('/sms', (req, res) => {
       to: `${rows[0].patientNum}`
     })
   }
-  
+
   //New Pill count and new medication time is updated in the databse
   knex('prescriptions').where({id: rows[0].id}).update({total_number_pills: newPillTotal, start_time: newStartTime})
   .then(rows => {
