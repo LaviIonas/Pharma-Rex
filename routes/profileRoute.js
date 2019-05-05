@@ -6,6 +6,7 @@ const router  = express.Router();
 
 module.exports = (knex, moment, client) => {
 
+  //Message function sends text message to patient reminding them to take their prescribed meds.
   function message (name, medName, phoneNumber, id) {
     client.messages
     .create({
@@ -14,52 +15,6 @@ module.exports = (knex, moment, client) => {
       to: `${phoneNumber}`
     })
   }
-
-
-
-
-
-
-
-  // function notificationPuller () {
-  //   knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id')
-  //   .innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id')
-  //   .select('prescriptions.id', 'name','start_time', 'medication_name', 'phone_number')
-  //   .then(rows => {
-  
-  //     const array = []
-  
-  //     rows.forEach( function(row) {
-  
-  //       let obj = {}
-  //       obj.id = row.id
-  //       obj.email = row.name
-  //       obj.medication = row.medication_name
-  //       obj.phone = row.phone_number
-  //       obj.time = row.start_time
-  
-  //       array.push(obj)
-  //   })
-  // // console.log("ARRAY", array)
-  //   array.forEach(function (i) {
-  
-  //     let time = moment()
-  //     let pTime = moment(i.time)
-  //     let diff = pTime.diff(time, 'milliseconds')
-  //     console.log(diff)
-    
-  //     if (diff < 0) {
-  //       return
-  //     } else  {
-  //       setTimeout(message, diff, i.email, i.medication, i.phone, i.id)
-  //     }
-  
-  //   })
-  
-  // })
-  // }
-
-  
 
   //Route Recieves Drug data when user creates a new one
   router.post("/data/new-drug", (req, res) => {
@@ -78,46 +33,31 @@ module.exports = (knex, moment, client) => {
               res.status(500).end()
               return
             }
-
-            console.log("ROWS PROFILE ROUTE", rows)
+            //Query DB in order to relevant info create a timer for new message every time a new drug is added to the database
             knex.table('patients').innerJoin('prescriptions', 'prescriptions.patient_id', '=', 'patients.id')
             .innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id')
             .select('prescriptions.id', 'patients.phone_number', 'start_time', 'interval', 'patients.name', 'medication_name')
             .where({'prescriptions.id': rows[0]})
             .then(rows => {
-              console.log("PROFILE ROUTE NEW PRESCRIPT", rows)
-
+            
               let time = moment()
               let startTime = moment(rows[0].start_time)
               let diff = startTime.diff(time, 'milliseconds')
-              console.log("DIFFERENCE IN Hopefully works", diff)
-
+              
               setTimeout(function() {
-
                 message(rows[0].name, rows[0].medication_name, rows[0].phone_number, rows[0].id)
-            
-            }, diff);
- 
-            
-        
+              }, diff);
+            })
           })
-        })
-
-    
-    res.status(200).end();
-    
-  });
-
-})
+          res.status(200).end();
+        });
+      })
 
   //Empty Route sending an ARRAY of objects of drugs
   //This route is responcible for filling the state array of existing added drugs
   router.get("/data/fill-array", (req,res) => {
     
-    
-
     knex.table('prescriptions').innerJoin('medications', 'prescriptions.medication_id', '=', 'medications.id').where({patient_id: req.session.patient_id})
-    // knex('prescriptions').select('name').where({ id: req.session.patient_id})
     .then (rows => {
       const array = []
 
@@ -131,17 +71,6 @@ module.exports = (knex, moment, client) => {
         
         array.push(drugObj)
 
-        // setTimeout(message, diff, i.email, i.medication, i.id)
-        
-      
-      
-      
-      // const drugs = [{
-      //   name: rows[0].name
-      // }]
-    //Create an array of objects of the drug info
-    //Example: array: [{name: "Heroin", dose: "2"}, {name: "Cocain", dose: "1"}]
-    // res.json(drugs)
   })
   // notificationPuller()
   res.json({array: array})

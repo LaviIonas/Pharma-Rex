@@ -44,6 +44,7 @@ const caretakerRoute = require("./routes/caretakerRoute");
 // Mount all resource routes
 app.use("/login", loginRoute(knex));
 app.use("/register", registerRoute(knex));
+//moment.js and twilio client passed into /profile
 app.use("/profile", profileRoute(knex, moment, client));
 app.use("/caretaker", caretakerRoute(knex));
 
@@ -51,7 +52,7 @@ app.use("/caretaker", caretakerRoute(knex));
 app.use(knexLogger(knex));
 
 
-//Message function sends notification to patient reminding them to take their prescribed meds.
+//Message function sends text message to patient reminding them to take their prescribed meds.
 function message (name, medName, phoneNumber, id ) {
   //
   client.messages
@@ -61,48 +62,43 @@ function message (name, medName, phoneNumber, id ) {
     to: `${phoneNumber}`
   })
 }
-// function secondmessage (name, medName, id) {
-//   //phoneNumber
-//   client.messages
-//   .create({
-//     body: `Hello ${name}, is taking ${medName}! Againg. Send this number ${id}`,
-//     from: '+16474902749',
-//     to: '+16132654021'
-//     //`${phoneNumber}`
-//   })
-// }
 
 function notificationPuller () {
+  //join prescription, medication, and patient tables.
   knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id')
   .innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id')
   .select('prescriptions.id', 'name','start_time', 'medication_name', 'phone_number')
   .then(rows => {
-
-    const array = []
+    
+    //Array of objectc containing info to constuct message and time to send it
+    const patientMessagesList = []
 
     rows.forEach( function(row) {
 
-      let obj = {}
+      let patientObj = {}
       obj.id = row.id
       obj.name = row.name
       obj.medication = row.medication_name
       obj.phone = row.phone_number
       obj.time = row.start_time
 
-      array.push(obj)
+      patientMessagesList.push(patientObj)
   })
-// console.log("ARRAY", array)
-  array.forEach(function (i) {
-
-    let time = moment()
-    let pTime = moment(i.time)
-    let diff = pTime.diff(time, 'milliseconds')
-    console.log(diff)
   
+  //Loop through patientMessagesList and subtract the current time from time to send and use the difference (in miliseconds)
+  //to setTimeout. I use moment js to format the time and make it possible to subtract the dates.
+  patientMessagesList.forEach(function (message) {
+
+    let currentTime = moment()
+    let sendTime = moment(message.time)
+    let timeDiff = sendTime.diff(currentTime, 'milliseconds')
+    
+    //If the date has already passed (diff is a negative number, don't setTimeout)
     if (diff < 0) {
       return
     } else  {
-      setTimeout(message, diff, i.name, i.medication, i.phone, i.id)
+      //setTimeout calls the message function when timeDiff reaches out 0 and passes 4 parameters
+      setTimeout(message, timeDiff, message.name, message.medication, message.phone, message.id)
     }
 
   })
@@ -110,26 +106,22 @@ function notificationPuller () {
 })
 }
 
-//Runs on server start. Pulls patient info.
-
+//Runs on server start. Pulls patient info and sets setTimeout function.
 notificationPuller()
 
+//When a patient responds to a text Twilio sends the response here.
 app.post('/sms', (req, res) => {
 
   knex.table('patients').innerJoin('prescriptions', 'prescriptions.patient_id', '=', 'patients.id')
   .innerJoin('caregivers', 'caregivers.id', '=', 'patients.caregiver_id')
   .innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id')
-  .select('prescriptions.id', 'caregivers.phone_number', {patientNum: 'patients.phone_number'}, 'total_number_pills', 'number_pills_to_take', 'start_time', 'interval', 'patients.name', 'medication_name', 'pharmacy_number',)
+  .select('prescriptions.id', 'caregivers.phone_number', {patientNum: 'patients.phone_number'}, 'total_number_pills', 
+  'number_pills_to_take', 'start_time', 'interval', 'patients.name', 'medication_name', 'pharmacy_number',)
   .where({'prescriptions.id': req.body.Body})
 
-
   .then(rows => {
-    console.log("SMS RESPONSE ROWS", rows)
-   
-    // console.log("PATIENT NUM", rows[0].patients.phone_number)
-    // console.log("Caregiver NUM", rows[0].caregivers.phone_number)
-    // console.log(" NUM in general", rows[0].phone_number)
-    
+
+    //This is the message that is created and sent to a caregiver
     client.messages
     .create({
       body: ` ${rows[0].name} took their ${rows[0].number_pills_to_take} pill(s) of ${rows[0].medication_name}. No need to respond`,
@@ -137,27 +129,25 @@ app.post('/sms', (req, res) => {
       to: `${rows[0].phone_number}`
     })
 
+    //Update the datebase by subtracting the amount of pills taken and adding the interval to the original
     let newPillTotal = rows[0].total_number_pills - rows[0].number_pills_to_take
-
+    
     let newStartTime = moment(rows[0].start_time).add(rows[0].interval, 'seconds');
 
     let time = moment()
     let diff = newStartTime.diff(time, 'milliseconds')
 
-    console.log("NEW DIFFERENCE", diff)
-    
-    // setTimeout(message, rows[0].name, rows[0].medication_name, rows[0].id)
-    // setTimeout(message, diff, i.name, i.medication, i.id)
-
+    //Use the difference of the newStart time and current time to set another timeout for another message
     setTimeout(function() {
-
       message(rows[0].name, rows[0].medication_name, rows[0].patientNum, rows[0].id)
-  
-  }, diff);
- 
+    }, diff);
+
+    //If the patients new pill total is less than ten we send a notification to the patient and caregiver telling them
+    //to call their pharmacists and order more.
 
     if (newPillTotal < 10 && newPillTotal > 0) {
-
+      
+      //Caregiver message
       client.messages
       .create({
       body: ` ${rows[0].name} only has ${newPillTotal} of ${rows[0].medication_name}. Call their pharmacy
@@ -167,32 +157,24 @@ app.post('/sms', (req, res) => {
       
     })
 
+    //Message to patient
     client.messages
-      .create({
+    .create({
       body: ` You only have ${newPillTotal} of ${rows[0].medication_name}. Call your pharmacy
       to request a refill. Pharmacy Number is: ${rows[0].pharmacy_number} `,
       from: '+16474902749',
       to: `${rows[0].patientNum}`
-      
     })
-
-    }
-    
-    //let evenNewerTime = moment(newStartTime).format('MMMM Do YYYY, h:mma')
-
-    knex('prescriptions').where({id: rows[0].id}).update({total_number_pills: newPillTotal, start_time: newStartTime})
-    .then(rows => {
+  }
+  
+  //New Pill count and new medication time is updated in the databse
+  knex('prescriptions').where({id: rows[0].id}).update({total_number_pills: newPillTotal, start_time: newStartTime})
+  .then(rows => {
       console.log("UPDATED ROWS", rows)
-      
-
     })
+    res.status(200).end();
   })
 })
-
-
-
-
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
