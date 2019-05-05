@@ -19,7 +19,7 @@ class PatientRegisterForm extends Component {
 
           <label>
                 Password :
-            <input type="text"
+            <input type="password"
               placeholder= "password"
               value={this.props.password}
               onChange={this.props.handlePassword} />

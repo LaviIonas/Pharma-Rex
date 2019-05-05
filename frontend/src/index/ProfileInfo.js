@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Index.css';
 import axios from 'axios';
-import profilePic from '../logo.svg';
+import patientphoto from "../PatientProfilePhoto.png";
 axios.defaults.baseURL = 'http://localhost:3001'
 
 class ProfileInfo extends Component {
@@ -31,12 +31,16 @@ class ProfileInfo extends Component {
   render () {
     return (
       <div>
-      <div className="profileStyle">
-        <img src={profilePic} className = "profile-pic" alt="Logo" />
-        <p>Name: {this.state.name}</p>
-        <p>ID for Caretaker: {this.state.careID}</p>
-        <p>Doctor: {this.state.doctor}</p>
-        <p>Pharmacy Number: {this.state.pharmacyNum}</p>
+        <div className="wrapper">
+          <div className="profileStyle">
+            <img src={patientphoto} className = "patient-profile-pic" alt="Patient" />
+          </div>
+          <div className="profileText">
+            <p>Name: {this.state.name}</p>
+            <p>ID for Caretaker: {this.state.careID}</p>
+            <p>Doctor: {this.state.doctor}</p>
+            <p>Pharmacy Number: {this.state.pharmacyNum}</p>
+          </div>
         </div>
       </div>
     );

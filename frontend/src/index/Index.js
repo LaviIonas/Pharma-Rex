@@ -168,12 +168,6 @@ class Home extends Component {
             </p>
           </div>
 
-          // <button onClick={sendText}>Send Text</button>//
-
-          <button onClick={this.toggleLogin}>Login</button>
-          <button onClick={this.toggleRegister}>Register</button>
-
-
             <RegisterPopup
             showRegister={this.state.showRegister}
               closePopup={this.toggleRegister}
