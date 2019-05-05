@@ -48,18 +48,17 @@ class CaretakerInfo extends Component {
   render () {
     console.log("Running Caretaker info");
     return (
+      <div>
       <div className="wrapperCaretaker">
         <div className="caretakerStyle">
           <img src={caregiverphoto} className = "caregiver-profile-pic" alt="Caregiver" />
         </div>
         <div className="caretakerText">
           <p> Name: {this.state.name} </p>
-          <p> Name: {this.state.name} </p>
-          <p> Name: {this.state.name} </p>
-          <p> Name: {this.state.name} </p>
         </div>
+      </div>
         <div>
-          <button className="addPill" onClick={this.togglePopup}>ADD NEW PATIENT</button>
+          <button className="addPatient" onClick={this.togglePopup}>ADD NEW PATIENT</button>
           {this.state.popup ?
             <PatientManagement array={this.state.patientArray}
                                whenSubmit = {this.updateArray}
@@ -75,7 +74,7 @@ class CaretakerInfo extends Component {
                                                           pharmacyN={patient.pharmacyNumber}
                                                           rx={patient.rxNumber}
                                                           />)
-                                                          };
+                                                          }
         </div>
       </div>
     )

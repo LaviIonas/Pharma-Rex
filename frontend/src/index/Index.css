@@ -270,6 +270,7 @@ label {
 
 .contact-text {
   padding-left: 50px;
+  font-family: "Nunito", sans-serif;
 }
 
 /* Pill Management */
@@ -390,6 +391,20 @@ display: flex;
   flex: 1;
   padding-top: 48px;
   padding-left: 170px;
+  font-family: "Nunito", sans-serif;
+}
+
+.addPatient {
+  background-color: #b8e7cd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 20px 90px;
+  cursor: pointer;
+  border-radius: 16px;
   font-family: "Nunito", sans-serif;
 }
 
