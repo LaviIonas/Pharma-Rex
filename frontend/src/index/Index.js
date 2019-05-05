@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import './Index.css';
 import dino from "../dino.gif";
-import rainbow from "./rainbowpills.jpg"
 import circle1 from "../1.png";
 import circle2 from "../2.png";
 import circle3 from "../3.png";
@@ -19,11 +18,8 @@ import LoginPopup from './LoginPopup';
 
 import PillManagement from './PillManagement';
 import ProfileInfo from './ProfileInfo';
-
 import CaretakerInfo from './CaretakerInfo';
-
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-
 import Navbar from './Navbar';
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3001';
@@ -248,12 +244,8 @@ function About () {
       <Navbar />
         <h2 className="home-page">About</h2>
           <div className="about-text">
-          <div className="pills-about-image"></div>
-          <img src={rainbow} className="rainbow" />
             <p></p>
-
-              <h2 className="about-header">What is Pharma Rex?</h2>
-      <p>Pharma Rex is an easy to use tool that helps patients and their caregivers manage their medications.
+      <p>Pharma Rex is an easy-to-use tool that helps patients and their caregivers manage their medications.
       </p>
 
         <br />
