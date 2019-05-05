@@ -20,6 +20,7 @@ const corsOptions = {origin: 'http://localhost:3000', credentials: true}
 const client = require('twilio')(accountSid, authToken);
 var moment = require('moment');
 
+
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -43,25 +44,16 @@ const caretakerRoute = require("./routes/caretakerRoute");
 // Mount all resource routes
 app.use("/login", loginRoute(knex));
 app.use("/register", registerRoute(knex));
-app.use("/profile", profileRoute(knex));
+app.use("/profile", profileRoute(knex, moment, client));
 app.use("/caretaker", caretakerRoute(knex));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
 
-// app.get("/test", (req,res) => {
-//   console.log("Sent the Message");
-//   client.messages
-//     .create({
-//       body: 'Hello, it is time to take your medication!',
-//       from: '+16474902749',
-//       to: '+14168890760'
-//     })
-// })
-
 //Message function sends notification to patient reminding them to take their prescribed meds.
-function message (name, medName, phoneNumber, id) {
+function message (name, medName, phoneNumber, id ) {
+  //
   client.messages
   .create({
     body: `Hello ${name}, it's time to take your ${medName}! Respond with only this number: ${id}`,
@@ -69,6 +61,16 @@ function message (name, medName, phoneNumber, id) {
     to: `${phoneNumber}`
   })
 }
+// function secondmessage (name, medName, id) {
+//   //phoneNumber
+//   client.messages
+//   .create({
+//     body: `Hello ${name}, is taking ${medName}! Againg. Send this number ${id}`,
+//     from: '+16474902749',
+//     to: '+16132654021'
+//     //`${phoneNumber}`
+//   })
+// }
 
 function notificationPuller () {
   knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id')
@@ -82,7 +84,7 @@ function notificationPuller () {
 
       let obj = {}
       obj.id = row.id
-      obj.email = row.name
+      obj.name = row.name
       obj.medication = row.medication_name
       obj.phone = row.phone_number
       obj.time = row.start_time
@@ -96,12 +98,13 @@ function notificationPuller () {
     let pTime = moment(i.time)
     let diff = pTime.diff(time, 'milliseconds')
     console.log(diff)
-
+  
     if (diff < 0) {
       return
     } else  {
-      setTimeout(message, diff, i.email, i.medication, i.phone, i.id)
+      setTimeout(message, diff, i.name, i.medication, i.phone, i.id)
     }
+
   })
 
 })
@@ -109,19 +112,24 @@ function notificationPuller () {
 
 //Runs on server start. Pulls patient info.
 
-// notificationPuller()
-setInterval(notificationPuller, 10000)
+notificationPuller()
 
 app.post('/sms', (req, res) => {
 
   knex.table('patients').innerJoin('prescriptions', 'prescriptions.patient_id', '=', 'patients.id')
   .innerJoin('caregivers', 'caregivers.id', '=', 'patients.caregiver_id')
   .innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id')
-  .select('prescriptions.id', 'caregivers.phone_number', 'total_number_pills', 'number_pills_to_take', 'start_time', 'interval', 'patients.name', 'medication_name', 'pharmacy_number',)
+  .select('prescriptions.id', 'caregivers.phone_number', {patientNum: 'patients.phone_number'}, 'total_number_pills', 'number_pills_to_take', 'start_time', 'interval', 'patients.name', 'medication_name', 'pharmacy_number',)
   .where({'prescriptions.id': req.body.Body})
+
 
   .then(rows => {
     console.log("SMS RESPONSE ROWS", rows)
+   
+    // console.log("PATIENT NUM", rows[0].patients.phone_number)
+    // console.log("Caregiver NUM", rows[0].caregivers.phone_number)
+    // console.log(" NUM in general", rows[0].phone_number)
+    
     client.messages
     .create({
       body: ` ${rows[0].name} took their ${rows[0].number_pills_to_take} pill(s) of ${rows[0].medication_name}. No need to respond`,
@@ -133,6 +141,21 @@ app.post('/sms', (req, res) => {
 
     let newStartTime = moment(rows[0].start_time).add(rows[0].interval, 'seconds');
 
+    let time = moment()
+    let diff = newStartTime.diff(time, 'milliseconds')
+
+    console.log("NEW DIFFERENCE", diff)
+    
+    // setTimeout(message, rows[0].name, rows[0].medication_name, rows[0].id)
+    // setTimeout(message, diff, i.name, i.medication, i.id)
+
+    setTimeout(function() {
+
+      message(rows[0].name, rows[0].medication_name, rows[0].patientNum, rows[0].id)
+  
+  }, diff);
+ 
+
     if (newPillTotal < 10 && newPillTotal > 0) {
 
       client.messages
@@ -141,15 +164,27 @@ app.post('/sms', (req, res) => {
       to request a refill. Pharmacy Number is: ${rows[0].pharmacy_number} `,
       from: '+16474902749',
       to: `${rows[0].phone_number}`
+      
+    })
+
+    client.messages
+      .create({
+      body: ` You only have ${newPillTotal} of ${rows[0].medication_name}. Call your pharmacy
+      to request a refill. Pharmacy Number is: ${rows[0].pharmacy_number} `,
+      from: '+16474902749',
+      to: `${rows[0].patientNum}`
+      
     })
 
     }
-
+    
     //let evenNewerTime = moment(newStartTime).format('MMMM Do YYYY, h:mma')
 
     knex('prescriptions').where({id: rows[0].id}).update({total_number_pills: newPillTotal, start_time: newStartTime})
     .then(rows => {
       console.log("UPDATED ROWS", rows)
+      
+
     })
   })
 })
