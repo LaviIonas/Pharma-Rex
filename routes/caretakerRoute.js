@@ -6,6 +6,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+
   //Empty Route that takes care of feeding information to the
   //Caretaker page as well as feeding the array of patients
   router.get("/data/caretakerInfo", (req,res) => {

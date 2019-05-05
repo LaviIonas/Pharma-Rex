@@ -63,7 +63,7 @@ exports.seed = function(knex, Promise) {
         name: 'Arya Stark',
         doctor_name: 'Dr. Nick',
         pharmacy_number: '123456789',
-        phone_number: '+14168890760',
+        phone_number: '+16132654021',
         caregiver_id: response[3].id
       },
       {
@@ -72,7 +72,7 @@ exports.seed = function(knex, Promise) {
         name: 'Sansa Stark',
         doctor_name: 'Dr. Phil',
         pharmacy_number: '123456789',
-        phone_number: '+14168890760',
+        phone_number: '+16132654021',
         caregiver_id: response[2].id
       },
       {
@@ -113,9 +113,9 @@ exports.seed = function(knex, Promise) {
         medication_id: response[0].id,
         rx_number: '9876-54321',
         dosage: '500 mg',
-        total_number_pills: 30,
+        total_number_pills: 9,
         number_pills_to_take: 1,
-        start_time: 'May 4, 2019 1:53PM',
+        start_time: 'May 4, 2019 8:56PM',
         interval: 200
         },
         {
@@ -125,8 +125,8 @@ exports.seed = function(knex, Promise) {
           dosage: '2 mg',
           total_number_pills: 90,
           number_pills_to_take: 3,
-          start_time: 'May 3, 2019 8:10PM',
-          interval: 400
+          start_time: 'May 4, 2019 8:59PM',
+          interval: 100
         },
         {
           patient_id: patients[1],
@@ -135,8 +135,8 @@ exports.seed = function(knex, Promise) {
           dosage: '40 mg',
           total_number_pills: 40,
           number_pills_to_take: 3,
-          start_time: 'May 3, 2019 8:11PM',
-          interval: 300
+          start_time: 'May 4, 2019 7:58PM',
+          interval: 200
         },
         {
           patient_id: patients[2],
@@ -145,8 +145,8 @@ exports.seed = function(knex, Promise) {
           dosage: '10 mg',
           total_number_pills: 10,
           number_pills_to_take: 1,
-          start_time: 'May 3, 2019 8:11PM',
-          interval: 300
+          start_time: 'May 4, 2019 7:59PM',
+          interval: 100
         },
         {
           patient_id: patients[3],
