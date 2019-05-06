@@ -31,8 +31,7 @@ class CaretakerInfo extends Component {
     axios
     .get("/caretaker/data/caretakerInfo", {withCredentials: true})
     .then((res) => {
-      console.log("NAME OR ARRAY? -------->", res);
-      this.setState ({ name: res.data.name })
+      this.setState ({ name: res.data.careName })
       let self = this;
       res.data.array.forEach((patient) => {
         self.setState({
@@ -40,13 +39,10 @@ class CaretakerInfo extends Component {
         patientArray: [...this.state.patientArray, patient]
         })
       })
-      console.log(this.state.patientArray);
-
     })
   }
 
   render () {
-    console.log("Running Caretaker info");
     return (
       <div>
       <div className="wrapperCaretaker">
@@ -83,19 +79,17 @@ class CaretakerInfo extends Component {
 
 class Patient extends Component {
   render() {
-    console.log(this.props.name);
     return (
       <div className="Caregiverpatientliststyle" >
-        //-----------//
 
-        <p>{this.props.name}</p>
-        <p>{this.props.drug}</p>
-        <p>{this.props.dose}</p>
-        <p>{this.props.pillsR}</p>
-        <p>{this.props.time}</p>
-        <p>{this.props.doctor}</p>
-        <p>{this.props.pharmacyN}</p>
-        <p>{this.props.rx}</p>
+        <p>Patient Name: {this.props.name}</p>
+        <p>Medication: {this.props.drug}</p>
+        <p>Dose: {this.props.dose}</p>
+        <p>Pills Remaining: {this.props.pillsR}</p>
+        <p>Time: {this.props.time}</p>
+        <p>Doctor: {this.props.doctor}</p>
+        <p>Pharmacy Number: {this.props.pharmacyN}</p>
+        <p>RX Number: {this.props.rx}</p>
 
       </div>
       );
