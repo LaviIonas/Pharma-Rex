@@ -52,6 +52,11 @@ module.exports = (knex) => {
 
   router.get("/logout", (req, res) => {
     req.session = null;
+    res.json({boolean: true});
+  });
+
+  router.get("/session", (req, res) => {
+    res.json({session: req.session});
   });
 
   return router;

@@ -206,17 +206,16 @@ class Home extends Component {
 };
 
 class Profile extends Component {
-
   render() {
     return (
-      <div>
-        <PostSideBar />
+    <div>
+      <PostSideBar />
 
-        <div>
-          <ProfileInfo />
-          <PillManagement />
-        </div>
+      <div>
+        <ProfileInfo />
+        <PillManagement />
       </div>
+    </div>
 
     );
   }
@@ -294,11 +293,8 @@ class Logout extends Component {
     .get("/login/logout", {withCredentials: true})
     .then((res) => {
       this.setState({
-        redirect: true
+        redirect: res.data.boolean
       })
-
-      //This request doesnt work
-      console.log(this.state.redirect);
     });
   }
   render () {
