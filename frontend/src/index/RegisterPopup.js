@@ -83,10 +83,7 @@ class RegisterPopup extends Component {
 
     axios
     .post("/register", registerData, {withCredentials: true})
-    .then((res) => {
-      alert("Thank you for the info");
-    })
-
+    .then((res) => {})
     this.props.redirectPatient();
   }
 
@@ -108,7 +105,6 @@ class RegisterPopup extends Component {
     .post("/register", registerData, {withCredentials: true})
     .then((res) => {
       console.log(res);
-      alert("Thank you for the info");
     })
 
     this.props.redirectCaregiver();

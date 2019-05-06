@@ -5,13 +5,23 @@ const router  = express.Router();
 
 
 module.exports = (knex) => {
-
-
-  //Empty Route that takes care of feeding information to the
-  //Caretaker page as well as feeding the array of patients
+  // //Send me data from the DB please (name, careID, doctor, pharmacyNum)
+  // knex('patients').select('*').where({ id: req.session.patient_id})
+  // .then (rows => {
+  //   const patientInfo = {
+  //     name: rows[0].name,
+  //     careID: req.session.patient_id,
+  //     doctor: rows[0].doctor_name,
+  //     pharmacyNum: rows[0].pharmacy_number
+  //   }
+  //   res.json(patientInfo)
+  // })
   router.get("/data/caretakerInfo", (req,res) => {
       knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id').innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id').where({caregiver_id: req.session.caregiver_id})
       .then(rows => {
+        knex('caregivers').select('*').where({ id: req.session.caregiver_id})
+        .then (row => {
+        let careName = row[0].name;
         const array = []
         rows.forEach(function (patientInfo){
           let patientObj = {}
@@ -28,14 +38,11 @@ module.exports = (knex) => {
 
           array.push(patientObj)
 
+          })
+          res.json({array: array, careName: careName});
+        })
       })
-      console.log("CARETAKER", array)
-      res.json({array: array})
-
     })
-
-
-  })
 
   //update a new patient to a caretaker
   router.post("/data/new-patient", (req,res) => {
@@ -46,10 +53,10 @@ module.exports = (knex) => {
       if (err) {
       console.log("Error", err)
       }
-      
+
   //     knex.table('prescriptions').innerJoin('patients', 'prescriptions.patient_id', '=', 'patients.id').innerJoin('medications', 'medications.id', '=', 'prescriptions.medication_id').where({caregiver_id: req.session.caregiver_id})
   //     .then(rows => {
-      
+
   //     const array = []
   //     rows.forEach(function (patientInfo){
   //     let patientObj = {}
@@ -73,7 +80,7 @@ module.exports = (knex) => {
   // })
 
 })
-  
+
     //after res.json an object with the new array with the new patient
     //Like we did in LoginPopup
   })
