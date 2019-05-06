@@ -33,7 +33,9 @@ class PillManagment extends Component {
         self.setState({
         //Seed the array
         newArray: [...this.state.newArray, patient]
+        
         })
+       
       })
       this.props.whenSubmit(this.state.newArray);
     })

@@ -35,9 +35,9 @@ module.exports = (knex) => {
 
   router.post("/", (req, res) => {
     console.log("REQUBODY", req.body)
-
+    
     if (req.body.status === 'Patient') {
-      knex('patients').insert({ email: req.body.email, password: req.body.password }).returning('id')
+      knex('patients').insert({ email: req.body.email, password: req.body.password, name: req.body.name, phone_number: req.body.phone,  pharmacy_number: req.body.pharmacy, doctor_name: req.body.doctor  }).returning('id')
       .asCallback(function (err, rows) {
         if (err) {
           console.log(err);
@@ -52,8 +52,7 @@ module.exports = (knex) => {
 
     } else if (req.body.status === 'Caregiver') {
 
-      knex('caregivers').insert({ email: req.body.email, password: req.body.password}).returning('id')
-
+      knex('caregivers').insert({ email: req.body.email, password: req.body.password, name: req.body.name, phone_number: req.body.phone}).returning('id')
       .asCallback(function (err, rows) {
         console.log ("ROWS", rows)
         if (err) {
@@ -61,6 +60,17 @@ module.exports = (knex) => {
           res.status(500).end()
           return
         }
+
+        console.log("CARE ID------>", req.body.careId)
+        knex('patients').where({id: req.body.careId}).update({ caregiver_id: rows[0]})
+        .asCallback(function (err, rows) {
+          console.log ("ROWS", rows)
+          if (err) {
+            console.log(err);
+            res.status(500).end()
+            return
+          }
+        })
 
         req.session.caregiver_id = rows[0]
         console.log("ROW[0]", rows[0])
@@ -76,3 +86,7 @@ module.exports = (knex) => {
 
   return router;
 }
+
+
+
+
