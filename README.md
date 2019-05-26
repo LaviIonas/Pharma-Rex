@@ -1,4 +1,17 @@
-# Node Skeleton
+# Pharma Rex
+
+An application built with React, Express and the Twilio API to help patients and their caretakers better manage their prescription medication intake.
+
+## Screenshots
+
+Pharma Rex Homepage:
+
+!["Homepage on Load"]()
+
+Pharma Rex Patient Register Page:
+
+!["Register as a Patient"]()
+
 
 ## Project Setup
 
