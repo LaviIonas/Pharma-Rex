@@ -6,11 +6,23 @@ An application built with React, Express and the Twilio API to help patients and
 
 Pharma Rex Homepage:
 
-!["Homepage on Load"]()
+!["Homepage on Load"](https://github.com/LaviIonas/Pharma-Rex/blob/Readme/docs/A_homepage.png)
 
-Pharma Rex Patient Register Page:
+Pharma Rex Register Popup:
 
-!["Register as a Patient"]()
+!["Register Popup"](https://github.com/LaviIonas/Pharma-Rex/blob/Readme/docs/B_register.png)
+
+Pharma Rex Patient Register:
+
+!["Register as a Patient"](https://github.com/LaviIonas/Pharma-Rex/blob/Readme/docs/C_register_patient.png)
+
+Pharma Rex Patient Profile:
+
+!["Patient Profile"](https://github.com/LaviIonas/Pharma-Rex/blob/Readme/docs/D_patient_profile.png)
+
+Pharma Rex Caregiver Profile:
+
+!["Caregiver Profile"](https://github.com/LaviIonas/Pharma-Rex/blob/Readme/docs/E_caregiver_profile.png)
 
 
 ## Project Setup
